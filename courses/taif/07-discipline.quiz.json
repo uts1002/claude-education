@@ -1,0 +1,66 @@
+{
+  "title": "이해 확인 — 내 전공을 4D에 녹이기",
+  "passingScore": 3,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "이 강의의 흥미로운 출발 명제는?",
+      "options": [
+        "4D 적용은 반드시 AI 도구를 만져야 가능하다",
+        "AI를 안 만지고도 할 수 있다 — 분야의 암묵 지식을 명시화하는 일이다",
+        "이 작업은 학생만 하는 것이다",
+        "이 작업은 AI 전문가에게 맡겨야 한다"
+      ],
+      "answer": 1,
+      "explanation": "강의가 강조하는 핵심 — 이 작업은 *AI 없이* 시작합니다. 분야의 암묵 지식을 *말로 풀어내는* 사람 역량의 일입니다."
+    },
+    {
+      "type": "mcq",
+      "question": "강의가 *Discernment부터* 시작하라고 한 이유에 가장 가까운 것은?",
+      "options": [
+        "Discernment가 가장 쉽기 때문",
+        "AI 시대 가장 중요한 사람 능력이 *질을 알아보는 안목*이기 때문",
+        "Discernment 외의 다른 D는 중요하지 않기 때문",
+        "Discernment는 AI가 잘하지 못해서"
+      ],
+      "answer": 1,
+      "explanation": "강의는 명확히 합니다 — AI 시대에 *질을 알아보는 안목*이 가장 중요하고, 이 안목을 구체화하는 게 가장 시급한 일이라고요."
+    },
+    {
+      "type": "mcq",
+      "question": "Description 영역에서 강의가 권하는 작업이 *아닌* 것은?",
+      "options": [
+        "분야의 산출물(보고서·작품)을 정확한 섹션·관례 수준으로 지도화",
+        "전문가의 미시 결정을 추적해서 *전문가 사고 흐름도* 만들기",
+        "분야 규범(과학자의 회의·재현 등)에 이름 붙이기",
+        "AI 프롬프트 모음집을 학생에게 외우게 하기"
+      ],
+      "answer": 3,
+      "explanation": "이 강의는 *프롬프트 모음 외우기*와 정확히 반대 방향입니다 — 분야의 의사소통·사고 방식을 *명시화*하는 게 핵심이에요."
+    },
+    {
+      "type": "mcq",
+      "question": "Diligence 영역의 작업 중 강의가 가장 강조한 한 가지는?",
+      "options": [
+        "기준을 *교사가 내려주는* 학교 정책 강화",
+        "기준·정책을 *학생과 함께* 만들어 *왜 그것이 중요한지* 학생이 깊이 이해하게 함",
+        "AI 사용 신고를 의무화하는 시스템 도입",
+        "AI 사용을 학교 차원에서 전면 금지"
+      ],
+      "answer": 1,
+      "explanation": "강의는 'Don't just impose standards—build them with your students' — *함께 짓기*가 결정적입니다. 왜 그게 중요한지가 깊이 박혀야 행동에 옮겨져요."
+    },
+    {
+      "type": "mcq",
+      "question": "이 코스의 결론에 가장 가까운 한 문장은?",
+      "options": [
+        "학생을 AI에 의해 *대체*되도록 준비시킨다",
+        "학생을 AI에 *대체 불가*하게 준비시킨다",
+        "학생을 AI보다 더 *빠르게* 일하게 만든다",
+        "학생을 AI 없이도 일할 수 있게 만든다"
+      ],
+      "answer": 1,
+      "explanation": "코스의 결론 문장 — 'You're not preparing your students to be replaced by AI. You're preparing them to be irreplaceable.'"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "title": "이해 확인 — Discernment 자세히",
+  "passingScore": 3,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "Discernment의 *3차원*이 아닌 것은?",
+      "options": [
+        "Product Discernment (결과물 평가)",
+        "Process Discernment (과정 평가)",
+        "Performance Discernment (태도·소통 평가)",
+        "Platform Discernment (도구 평가)"
+      ],
+      "answer": 3,
+      "explanation": "3차원은 Product / Process / Performance. 'Platform'은 Delegation 쪽 용어로 헷갈리기 쉬워요."
+    },
+    {
+      "type": "mcq",
+      "question": "Process Discernment에서 알아채야 할 신호가 *아닌* 것은?",
+      "options": [
+        "AI의 논리 오류·주의력 결핍",
+        "거부한 아이디어가 슬그머니 다시 들어옴",
+        "순환 논리에 갇힘",
+        "결과물 글자 수가 길어짐"
+      ],
+      "answer": 3,
+      "explanation": "글자 수 자체는 *과정의 신호*가 아닙니다. 강의가 든 신호는 논리 오류·주의 결핍·거부 아이디어 복귀·순환 논리·과도한 갇힘이에요."
+    },
+    {
+      "type": "mcq",
+      "question": "Process와 Performance Discernment의 차이에 가장 가까운 것은?",
+      "options": [
+        "둘은 사실상 같은 것",
+        "Process = AI가 *하는 일* / Performance = AI가 *나와 소통하는 방식*",
+        "Process = 결과물 / Performance = 도구 선택",
+        "Process = 빠르기 / Performance = 가격"
+      ],
+      "answer": 1,
+      "explanation": "강의의 미묘한 구분 — Process는 *AI가 어떻게 일하는지*, Performance는 *AI가 어떻게 소통하는지*입니다."
+    },
+    {
+      "type": "mcq",
+      "question": "좋은 피드백의 *구조*에 가장 가까운 것은?",
+      "options": [
+        "잘못된 점만 짧게 지적하기",
+        "문제 명시 → 왜 문제인지 → 구체 개선 제안 → 지시·예 정리",
+        "AI에게 그냥 다시 해보라고만 하기",
+        "다른 AI에게 가서 다시 묻기"
+      ],
+      "answer": 1,
+      "explanation": "강의가 든 피드백 구조는 4단계 — 문제 명시 / 이유 / 구체 개선안 / 지시 정리. 반복 가능한 형태로 만들어줍니다."
+    },
+    {
+      "type": "mcq",
+      "question": "Discernment가 *문제를 발견했을 때* 강의가 권하는 첫 대응에 가장 가까운 것은?",
+      "options": [
+        "AI 사용을 그만두기",
+        "더 나은 *Description*으로 다시 시도 — 그래도 안 되면 *Delegation*도 재검토",
+        "다른 사람에게 일을 맡기기",
+        "결과를 그대로 받아들이기"
+      ],
+      "answer": 1,
+      "explanation": "강의는 — Discernment 문제는 *더 나은 Description*으로 풀리는 경우가 많다고 합니다. 그래도 안 되면 *Delegation 재검토*까지 갑니다."
+    }
+  ]
+}

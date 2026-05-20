@@ -1,0 +1,66 @@
+{
+  "title": "이해 확인 — Description-Discernment 루프 실습",
+  "passingScore": 3,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "이 차시에서 사용하는 *프로젝트*는?",
+      "options": [
+        "지금 즉석에서 새로 만드는 프로젝트",
+        "다른 사람의 프로젝트 평가",
+        "*Lesson 5에서 만든 내 프로젝트*를 그대로 이어서 실행",
+        "공식 예시 프로젝트"
+      ],
+      "answer": 2,
+      "explanation": "이 실습은 Lesson 5에서 만든 *같은 프로젝트*에 — 이번엔 Description·Discernment를 *루프*로 적용하는 시간입니다."
+    },
+    {
+      "type": "mcq",
+      "question": "루프의 한 사이클에 *포함되지 않는* 단계는?",
+      "options": [
+        "명확하게 Description",
+        "받은 결과를 Discernment",
+        "Discernment 기반으로 Description 다듬기",
+        "AI에게 *최종 결정*을 맡기기"
+      ],
+      "answer": 3,
+      "explanation": "*최종 결정의 책임*은 사람이 집니다. 루프는 명확한 Description → Discernment → Description 다듬기 → 내 전문성·판단 결합으로 이뤄집니다."
+    },
+    {
+      "type": "mcq",
+      "question": "결과가 자꾸 *빗나갈 때* 먼저 점검할 것에 가장 가까운 것은?",
+      "options": [
+        "Product Description — 형식·길이·청중이 모호한가",
+        "AI 모델을 바꾸기",
+        "프로젝트 자체를 포기",
+        "다른 사람에게 일을 떠넘기기"
+      ],
+      "answer": 0,
+      "explanation": "빗나가는 결과는 *Product Description의 모호함*이 원인인 경우가 많습니다. 형식·청중부터 점검해보세요."
+    },
+    {
+      "type": "mcq",
+      "question": "Step 2(Description 접근 준비)에서 *AI와 함께* 하는 일에 가장 가까운 것은?",
+      "options": [
+        "AI에게 모든 결정을 위임",
+        "Product / Process / Performance 3차원을 *대화로 명확히* 하기",
+        "AI 사용을 거부",
+        "AI에게 프로젝트 평가만 받기"
+      ],
+      "answer": 1,
+      "explanation": "Step 2의 핵심 — *작업 시작 전에* AI와 대화하며 3차원에서 *기대치를 정렬*합니다."
+    },
+    {
+      "type": "mcq",
+      "question": "이 루프가 잘 작동했을 때 *기대되는 결과*에 가장 가까운 것은?",
+      "options": [
+        "AI 혼자 만든 결과와 동일",
+        "사람 혼자 만든 결과와 동일",
+        "*사람도 AI도 혼자선 못 만들* 결과 — 협업으로만 가능한 결과",
+        "어떤 사람도 못 만드는 결과"
+      ],
+      "answer": 2,
+      "explanation": "강의의 목표 — *사람·AI 각자가 못 만드는 결과*를 *함께* 만드는 것이 협업의 본질입니다."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "aiff",
+  "title": "AI Fluency 코어 — 프레임워크와 기초",
+  "subtitle": "AI Fluency Framework & Foundations",
+  "source": "Anthropic Academy / Rick Dakan, Joseph Feller, Anthropic (CC BY-NC-SA 4.0)",
+  "summary": "AI Fluency의 *모든 것*이 시작되는 코어 코스. AI를 처음 진지하게 다루는 사람이 보고 익혀야 할 4D 프레임워크의 본격 정의와, 생성형 AI(LLM)의 작동·능력·한계까지 다룬다. AIF4E·TAIF의 전제 지식.",
+  "lessons": [
+    "02a-why-ai-fluency",
+    "02b-4d-framework",
+    "03a-what-is-genai",
+    "03b-capabilities-limits",
+    "04-delegation",
+    "05-project-planning",
+    "06-description",
+    "07-prompting",
+    "08-discernment",
+    "09-des-dis-loop",
+    "10-diligence",
+    "11-conclusion"
+  ]
+}

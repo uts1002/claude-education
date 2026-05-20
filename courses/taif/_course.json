@@ -1,0 +1,16 @@
+{
+  "id": "taif",
+  "title": "AI Fluency 가르치기",
+  "subtitle": "Teaching the AI Fluency Framework",
+  "source": "Anthropic Academy / Rick Dakan, Joseph Feller, Anthropic (CC BY-NC-SA 4.0)",
+  "summary": "내가 4D를 이해하는 것과 학생·동료에게 가르치는 것은 다르다. 이 코스는 '어떻게 소개할까(교수법)', '어떻게 평가할까(평가)', '어떻게 내 분야에 녹일까(통합)'의 세 질문을 다룬다.",
+  "lessons": [
+    "01-welcome",
+    "02-del-dil",
+    "03-des-dis",
+    "04-assess",
+    "05-assign",
+    "06-impact",
+    "07-discipline"
+  ]
+}

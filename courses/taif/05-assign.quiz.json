@@ -1,0 +1,66 @@
+{
+  "title": "이해 확인 — 4D 과제 설계",
+  "passingScore": 3,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "과제 설계 3원칙이 아닌 것은?",
+      "options": [
+        "진정성 (Authenticity)",
+        "반복 (Iteration)",
+        "교육적 투명성 (Pedagogical Transparency)",
+        "익명성 (Anonymity)"
+      ],
+      "answer": 3,
+      "explanation": "강의가 든 3원칙은 진정성·반복·투명성입니다. 익명성은 들어가지 않아요."
+    },
+    {
+      "type": "mcq",
+      "question": "Process-based 과제 유형에 가장 가까운 것은?",
+      "options": [
+        "최종 에세이 제출",
+        "AI 출력 개선하기",
+        "주석 달린 채팅 로그·과정 플레이북",
+        "최종 시험"
+      ],
+      "answer": 2,
+      "explanation": "Process-based는 *시간 흐름의 협업을 시각화*하는 데 초점입니다 — 주석 채팅 로그, 녹화 내레이션, 과정 플레이북, 디브리핑이 대표적이에요."
+    },
+    {
+      "type": "mcq",
+      "question": "강의가 *가장 강력하다*고 평가한 Reflection 과제는?",
+      "options": [
+        "가이드 인쿼리",
+        "학습 일지",
+        "시나리오·사례 연구",
+        "Personal Policy Statement (개인 정책 선언서)"
+      ],
+      "answer": 3,
+      "explanation": "강의는 '단 하나만 할 수 있다면 Personal Policy Statement'라고 권합니다 — 임파워먼트와 책임감을 동시에 키워줍니다."
+    },
+    {
+      "type": "mcq",
+      "question": "평가물 폭증 문제에 강의가 *권하지 않는* 해결책은?",
+      "options": [
+        "세분화된 산출물 기반 루브릭으로 빠르게 확인",
+        "자기·동료 평가를 적극 활용",
+        "교사가 모든 채팅 로그를 한 줄도 빠뜨리지 않고 다 읽는다",
+        "선택적 샘플링 — 학생이 주요 순간을 표시하게 가르친다"
+      ],
+      "answer": 2,
+      "explanation": "강의는 *모든 로그를 다 읽지 말라*고 명확히 권합니다. 학생이 핵심 순간을 표시하게 가르치고 그곳만 보는 게 현실적입니다."
+    },
+    {
+      "type": "mcq",
+      "question": "'AI 출력 개선하기' 과제의 학습 효과로 강의가 강조한 것은?",
+      "options": [
+        "AI에게 더 많이 의존하게 한다",
+        "Discernment(문제 발견)와 Description(개선 안내)을 함께 단련하며, 기존 자료를 출발점으로 다루는 법을 가르친다",
+        "학생이 단순히 AI를 더 빨리 쓰게 만든다",
+        "AI에게 책임을 전가하는 법을 가르친다"
+      ],
+      "answer": 1,
+      "explanation": "이 과제는 Discernment(어디가 약한지)와 Description(어떻게 다듬을지) 둘 다 단련하고, *기존 결과물 비판적 다루기*라는 핵심 메타 기술도 가르칩니다."
+    }
+  ]
+}

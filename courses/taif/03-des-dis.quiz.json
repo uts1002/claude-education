@@ -1,0 +1,66 @@
+{
+  "title": "이해 확인 — Description–Discernment 루프",
+  "passingScore": 3,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "강의가 말하는 '인지 환경(cognitive environment)'에 가장 가까운 설명은?",
+      "options": [
+        "AI에게 한 번에 입력하는 매우 긴 프롬프트",
+        "공유 어휘·합의된 목표·상호작용 패턴이 시간을 두고 쌓이는 협업의 토대",
+        "특정 AI 도구의 사용자 인터페이스 환경 설정",
+        "AI의 출력 정확성을 검증하는 시스템"
+      ],
+      "answer": 1,
+      "explanation": "인지 환경은 *시간을 두고 쌓이는* 협업의 토대 — 공유 어휘·목표·패턴·연결 메커니즘이 누적된 상태입니다."
+    },
+    {
+      "type": "mcq",
+      "question": "Description의 3P 중 'AI가 어떤 분위기·태도로 함께 있을지'를 다루는 것은?",
+      "options": [
+        "Product Description",
+        "Process Description",
+        "Performance Description",
+        "Platform Description"
+      ],
+      "answer": 2,
+      "explanation": "Product=무엇을, Process=어떻게, Performance=어떤 분위기로 함께. 'Platform'은 Delegation 쪽 용어로 헷갈리지 않게 주의."
+    },
+    {
+      "type": "mcq",
+      "question": "이 루프를 학생에게 가르치기 위해 강의가 권하지 *않는* 것은?",
+      "options": [
+        "한 줄 프롬프트로 끝나는 과제 위주로 설계한다",
+        "교사 자신이 AI와 협업하는 *과정*을 학생에게 공개한다",
+        "결과만이 아니라 *대화의 진화*를 기록하게 한다",
+        "여러 대화에 걸친 과제를 통해 *맥락 유지*의 한계를 직접 경험하게 한다"
+      ],
+      "answer": 0,
+      "explanation": "강의는 명확히 말합니다 — '한 줄 프롬프트 과제는 인지 환경 짓기를 안 가르친다'며 그런 과제를 *피하라*고 합니다."
+    },
+    {
+      "type": "mcq",
+      "question": "잘 자란 협업의 두 신호로 강의가 든 것은?",
+      "options": [
+        "프롬프트 길이가 길어진다 · 명령형이 늘어난다",
+        "공유 언어 · 탐색적 태도",
+        "AI가 점점 똑똑해진다 · 학생 개입이 줄어든다",
+        "결과물이 길어진다 · 채팅 횟수가 줄어든다"
+      ],
+      "answer": 1,
+      "explanation": "강의가 든 두 신호 — *Shared Language* (공유 언어)와 *Exploration Mindset* (탐색적 태도)입니다."
+    },
+    {
+      "type": "mcq",
+      "question": "두 루프의 관계로 가장 정확한 것은?",
+      "options": [
+        "두 루프는 서로 독립적이라 따로 다뤄야 한다",
+        "Delegation-Diligence가 *그릇*을, Description-Discernment가 *그 안의 살아 있는 협업*을 만든다",
+        "Description-Discernment 루프만 잘하면 Delegation-Diligence는 필요 없다",
+        "Delegation-Diligence가 끝난 뒤에야 Description-Discernment가 시작된다"
+      ],
+      "answer": 1,
+      "explanation": "강의의 결론 — 두 루프는 *맞물려* 작동합니다. 전략(D-D)이 그릇을 만들고, 전술(De-Di)이 그 안을 살아 있는 협업으로 채웁니다."
+    }
+  ]
+}

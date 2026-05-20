@@ -1,0 +1,66 @@
+{
+  "title": "이해 확인 — 4D 프레임워크 개요",
+  "passingScore": 3,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "4D 중 *결과물·방식·행동 톤*에 대한 소통을 다루는 능력은?",
+      "options": [
+        "Delegation",
+        "Description",
+        "Discernment",
+        "Diligence"
+      ],
+      "answer": 1,
+      "explanation": "Description은 AI에 어떻게 말할지 — 결과물(Product), 방식(Process), 행동 톤(Performance) 3차원으로 소통합니다."
+    },
+    {
+      "type": "mcq",
+      "question": "강의가 든 Delegation의 예시에 가장 가까운 것은?",
+      "options": [
+        "연구 프로젝트에서 *모든 일을* AI에 맡기기",
+        "긴 자료 검토는 AI에, *결정과 결론*은 자신이 — 강점에 따라 분담",
+        "AI를 완전히 배제하고 사람이 다 하기",
+        "AI에게 결론까지 정해달라고 부탁하기"
+      ],
+      "answer": 1,
+      "explanation": "강의의 예시 — 자료 검토는 AI, *결정·결론*은 사람. 각자의 강점에 따라 분담하는 게 핵심입니다."
+    },
+    {
+      "type": "mcq",
+      "question": "Discernment와 Description의 관계로 가장 가까운 것은?",
+      "options": [
+        "서로 무관한 별개 능력",
+        "Discernment는 평가 후 한 번 쓰고 끝",
+        "둘이 *작은 루프*를 이루며 부탁→결과→평가→다시 부탁이 반복",
+        "Discernment가 Description을 대체한다"
+      ],
+      "answer": 2,
+      "explanation": "강의는 명확히 — 두 능력이 *작은 루프*를 이뤄 협업의 핵심이라고 말합니다."
+    },
+    {
+      "type": "mcq",
+      "question": "Diligence의 핵심 자세에 가장 가까운 것은?",
+      "options": [
+        "AI 사용을 가능한 한 숨긴다",
+        "AI로 만든 결과의 책임을 AI에게 돌린다",
+        "AI 사용에 신중함·투명성·책임을 끝까지 짊어진다",
+        "Diligence는 결과물 배포 직전에만 신경 쓴다"
+      ],
+      "answer": 2,
+      "explanation": "Diligence는 신중한 시스템 선택(Creation), 투명성(Transparency), 책임(Deployment)을 *처음부터 끝까지* 짊어지는 자세입니다."
+    },
+    {
+      "type": "mcq",
+      "question": "4D가 *시간이 흘러도 유효*한 이유에 가장 가까운 것은?",
+      "options": [
+        "AI 도구가 4D만 지원하기 때문",
+        "특정 AI 도구나 기법에 묶여 있지 않은 *일반 능력*이기 때문",
+        "법으로 4D 사용이 의무화되어 있기 때문",
+        "AI가 4D 이외 기능은 갖지 않기 때문"
+      ],
+      "answer": 1,
+      "explanation": "강의의 핵심 문장 — '특정 AI 도구나 기법에 묶여 있지 않아' 도구가 바뀌어도 살아남는 능력입니다."
+    }
+  ]
+}

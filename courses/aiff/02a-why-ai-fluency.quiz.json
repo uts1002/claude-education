@@ -1,0 +1,66 @@
+{
+  "title": "이해 확인 — 왜 AI Fluency인가",
+  "passingScore": 3,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "이 강의가 정의한 'AI Fluency'에 가장 가까운 것은?",
+      "options": [
+        "특정 AI 모델의 단축키와 설정을 모두 외우는 능력",
+        "AI와 효과적·효율적·윤리적·안전하게 일하는 실용 능력·지식·통찰·가치의 묶음",
+        "프롬프트를 길게 잘 쓰는 기술",
+        "AI를 사용하지 않는 환경을 유지하는 능력"
+      ],
+      "answer": 1,
+      "explanation": "AI Fluency는 4가지(효과·효율·윤리·안전)를 모두 충족하며 일하는 *능력의 묶음*입니다. 특정 도구 사용법이 아니에요."
+    },
+    {
+      "type": "mcq",
+      "question": "AI와 일하는 *세 가지 모드*가 아닌 것은?",
+      "options": [
+        "Automation (자동화)",
+        "Augmentation (증강)",
+        "Agency (에이전시)",
+        "Authentication (인증)"
+      ],
+      "answer": 3,
+      "explanation": "세 모드는 Automation·Augmentation·Agency입니다. Authentication은 들어가지 않아요."
+    },
+    {
+      "type": "mcq",
+      "question": "Augmentation 모드의 특징으로 가장 가까운 것은?",
+      "options": [
+        "AI가 내 일을 대신해주고 결과만 받는다",
+        "AI와 사람이 함께 사고하고 함께 작업하며 탐색한다",
+        "AI에게 미리 행동 패턴을 설정해 자동으로 처리하게 한다",
+        "AI를 완전히 배제하고 사람 혼자 작업한다"
+      ],
+      "answer": 1,
+      "explanation": "Augmentation은 *함께* 사고하고 *함께* 작업하는 모드. AI가 생각의 파트너 역할을 합니다."
+    },
+    {
+      "type": "mcq",
+      "question": "Agency 모드를 가장 잘 설명한 비유는?",
+      "options": [
+        "각본가가 한 줄 한 줄 대사를 정해주는 것",
+        "감독이 비전과 행동 패턴을 정해두면 배우가 자유롭게 연기하는 것",
+        "관객이 그저 보기만 하는 것",
+        "혼자 무대 위에서 즉흥 연기하는 것"
+      ],
+      "answer": 1,
+      "explanation": "강의의 비유 — 'AI's knowledge and behavior patterns'를 설정하는 *감독*에 가깝다고 합니다. 구체 동작이 아니라 비전을 정해주는 것."
+    },
+    {
+      "type": "mcq",
+      "question": "세 모드의 우열 관계에 대한 강의의 입장은?",
+      "options": [
+        "Automation이 가장 효율적이라 항상 첫 선택이다",
+        "Agency만이 진짜 AI 활용이다",
+        "셋은 목적이 다른 도구로 한 프로젝트에서 셋 다 쓸 수 있다",
+        "Augmentation은 시간이 너무 걸려 권장되지 않는다"
+      ],
+      "answer": 2,
+      "explanation": "세 모드는 *목적이 다른* 도구이며 한 프로젝트에서 모두 쓸 수도 있다고 강의는 분명히 말합니다."
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "title": "이해 확인 — 학습자료·과제에 4D 적용",
+  "passingScore": 3,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "강의가 자료 제작에서 강조한 'AI 협업의 진짜 효과'에 가장 가까운 것은?",
+      "options": [
+        "더 빨리 자료를 만들 수 있다",
+        "더 화려한 자료를 만들 수 있다",
+        "자료의 *결*이 — 우리 반과 일관된 학습 경험으로 — 달라진다",
+        "AI가 채점까지 자동으로 해준다"
+      ],
+      "answer": 2,
+      "explanation": "강의는 'It's not just about creating materials faster. It's about creating materials that work better' — 시간이 아니라 *질과 일관성*이 본질이라고 합니다."
+    },
+    {
+      "type": "mcq",
+      "question": "Description의 세 층(Product·Process·Performance)을 활동지 제작에 옮긴 예로 가장 맞는 것은?",
+      "options": [
+        "Product=문제 푸는 방법, Process=답지 위치, Performance=문제 난이도",
+        "Product=결과물 형식·구조, Process=AI가 접근할 방식, Performance=AI의 톤·행동",
+        "Product=학생 평가 기준, Process=교사 평가 기준, Performance=학교 평가 기준",
+        "Product=시간 단축, Process=난이도 조정, Performance=인쇄 옵션"
+      ],
+      "answer": 1,
+      "explanation": "Product=결과물(형식·구조), Process=접근 방식(어떤 순서로 다룰지), Performance=AI의 행동 톤(어떤 식으로 반응할지). 자료 제작에서도 동일한 3층을 씁니다."
+    },
+    {
+      "type": "mcq",
+      "question": "AI가 학생 과제를 통과 수준으로 풀 수 있는 문제에 대한 강의의 입장은?",
+      "options": [
+        "AI를 쓰는 학생은 부정행위로 간주해야 한다",
+        "쉬운 해결책은 없으며, 동료·학생과 우려·기준을 명확히 하는 데서 출발해야 한다",
+        "AI 사용을 학교 차원에서 전면 금지해야 한다",
+        "AI를 더 강력하게 막는 기술적 장치가 필요하다"
+      ],
+      "answer": 1,
+      "explanation": "강의는 '쉬운 답은 없다. 학교마다 맥락이 다르다. Diligence의 출발은 동료·학생과 우려·기준을 명확히 하는 것'이라고 솔직히 말합니다."
+    },
+    {
+      "type": "mcq",
+      "question": "강의가 말하는 'AI에 능숙한 교사'의 핵심은?",
+      "options": [
+        "특정 AI의 비밀 프롬프트 모음을 외우는 것",
+        "다양한 AI 도구의 단축키와 옵션을 다 익히는 것",
+        "이미 가진 교수·전공 전문성을 AI 협업에 어떻게 적용할지 알아보는 것",
+        "AI에게 가능한 한 모든 결정을 위임하는 것"
+      ],
+      "answer": 2,
+      "explanation": "강의는 '비밀 프롬프트는 없다. AI 능숙함은 이미 가진 *교수·전공 전문성*을 AI 협업에 어떻게 적용할지 알아보는 능력'이라고 분명히 말합니다."
+    },
+    {
+      "type": "mcq",
+      "question": "Discernment의 좋은 사용에 가장 가까운 것은?",
+      "options": [
+        "마음에 안 들면 그냥 거부하고 다음 결과를 기다린다",
+        "잘 된 점은 '왜 좋은지', 안 된 점은 '왜 안 맞는지' AI에게 설명해 다음 결과의 질을 높인다",
+        "AI 결과는 일단 학생에게 보여주고 학생 반응으로 판단한다",
+        "Discernment는 문제 발견에만 쓰는 능력이다"
+      ],
+      "answer": 1,
+      "explanation": "강의는 'just say thanks and run하지 말고, *왜* 좋은지 설명하라'고 합니다. 좋은 Discernment는 문제 발견 + 가능성 발견 *둘 다*입니다."
+    }
+  ]
+}

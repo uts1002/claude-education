@@ -1,0 +1,66 @@
+{
+  "title": "이해 확인 — Description 자세히",
+  "passingScore": 3,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "Description의 3차원이 *아닌* 것은?",
+      "options": [
+        "Product Description (결과물)",
+        "Process Description (접근 방식)",
+        "Platform Description (도구 선택)",
+        "Performance Description (행동 톤)"
+      ],
+      "answer": 2,
+      "explanation": "3차원은 Product·Process·Performance. 'Platform'은 Delegation 쪽 용어로 헷갈리기 쉬워요."
+    },
+    {
+      "type": "mcq",
+      "question": "Process Description의 예시로 가장 가까운 것은?",
+      "options": [
+        "*형식·길이·청중*을 자세히 명시",
+        "*양파를 갈색까지 볶고, 루는 마지막*처럼 *접근 순서·방식*을 명시",
+        "*친절한 비평가 톤*으로 행동해달라",
+        "AI 모델을 무엇으로 고를지 정한다"
+      ],
+      "answer": 1,
+      "explanation": "Process Description은 *어떻게 일할지* — 접근 순서·방식·기법. 요리 비유에선 *순서와 방법*에 해당합니다."
+    },
+    {
+      "type": "mcq",
+      "question": "강의의 핵심 비유 — AI는 *무엇이 아니라고* 했나?",
+      "options": [
+        "데이터베이스나 자판기 (입력하면 정해진 출력이 나오는 것)",
+        "사람 동료",
+        "상호작용 시스템",
+        "맥락에 따라 다르게 행동할 수 있는 도구"
+      ],
+      "answer": 0,
+      "explanation": "AI는 *데이터베이스나 자판기가 아니다*. 사람처럼 *맥락에 따라 다르게 행동할 수 있는 상호작용 시스템*이라고 강의는 강조합니다."
+    },
+    {
+      "type": "mcq",
+      "question": "Performance Description이 다루는 것에 가장 가까운 것은?",
+      "options": [
+        "결과물의 형식·길이·청중",
+        "AI 모델의 기술 사양",
+        "*어떤 사고의 동료가 필요한지* — 비판적·격려·간결·상세 등",
+        "AI 사용에 대한 윤리 가이드라인"
+      ],
+      "answer": 2,
+      "explanation": "Performance는 *AI의 행동 톤* — 어떤 종류의 사고 동료로 함께 있을지를 정합니다."
+    },
+    {
+      "type": "mcq",
+      "question": "Description을 *프롬프트 잘 쓰기*가 아니라고 한 이유에 가장 가까운 것은?",
+      "options": [
+        "프롬프트는 무용하기 때문",
+        "Description은 *결과물·방식·톤*을 모두 다루는 *맥락 공유*이며, 한 줄로 끝나지 않기 때문",
+        "AI는 프롬프트를 이해하지 못하기 때문",
+        "프롬프트 기법은 지나치게 어렵기 때문"
+      ],
+      "answer": 1,
+      "explanation": "Description은 단일 프롬프트가 아니라 *3차원에 걸친 맥락 공유*이며, *명령*이 아니라 *대화*에 가깝습니다."
+    }
+  ]
+}

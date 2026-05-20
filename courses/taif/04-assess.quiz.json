@@ -1,0 +1,66 @@
+{
+  "title": "이해 확인 — 4D 평가",
+  "passingScore": 3,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "강의가 권하는 평가 3관점의 구성은?",
+      "options": [
+        "Outcome / Process / Reflection",
+        "Quiz / Essay / Project",
+        "Easy / Medium / Hard",
+        "Individual / Group / Class"
+      ],
+      "answer": 0,
+      "explanation": "Outcome-based(결과) · Process-based(과정) · Reflection-based(성찰) — 이 세 관점을 *통합*해서 본다는 게 핵심입니다."
+    },
+    {
+      "type": "mcq",
+      "question": "Process-based 평가에 가장 가까운 자료는?",
+      "options": [
+        "학생이 제출한 최종 에세이",
+        "주석이 달린 채팅 로그·반복 다듬기·실패와 전환의 흔적",
+        "학생 자기 평가 점수표",
+        "학기말 시험 점수"
+      ],
+      "answer": 1,
+      "explanation": "Process-based는 *시간 흐름 속의 협업 패턴*을 봅니다 — 반복·재시도·전환·맥락 쌓기의 흔적이 핵심 자료예요."
+    },
+    {
+      "type": "mcq",
+      "question": "강의가 가장 강조한 평가의 원칙은?",
+      "options": [
+        "셋 중 한 관점만 일관되게 사용한다",
+        "관찰 불가능한 *이해*를 추정해서 평가한다",
+        "결과·과정·성찰을 *함께* 통합해 본다",
+        "동일한 평가 방식을 모든 능력에 똑같이 적용한다"
+      ],
+      "answer": 2,
+      "explanation": "강의의 핵심 — 셋을 *통합*해야 진짜 협업 능력을 볼 수 있다고 합니다. 한 가지로는 부족합니다."
+    },
+    {
+      "type": "mcq",
+      "question": "Discernment 평가에서 Outcome 자료로 가장 가까운 것은?",
+      "options": [
+        "AI 출력에 학생이 단 주석 + 채택/수정/폐기 로그",
+        "학생의 학기말 시험 점수",
+        "교사의 직관적 인상 평가",
+        "AI가 자동 생성한 평가 보고서"
+      ],
+      "answer": 0,
+      "explanation": "Discernment Outcome — 학생이 AI 출력을 *어떻게 판단했는지* 표시한 주석, 그리고 채택/수정/폐기 결정 기록이 직접 자료입니다."
+    },
+    {
+      "type": "mcq",
+      "question": "평가의 본질에 대한 강의의 입장에 가장 가까운 것은?",
+      "options": [
+        "평가는 측정에서 끝나야 한다",
+        "평가도 학습 기회로 — 학생이 자기 성장을 인식하게 돕는다",
+        "평가는 객관적 수치로만 표현해야 한다",
+        "평가는 결과물 점수 매기기에만 집중해야 한다"
+      ],
+      "answer": 1,
+      "explanation": "강의의 결론 — 'Make assessment a learning opportunity, not just a measurement.' 평가가 학생의 성장 인식을 *돕는* 도구가 되어야 합니다."
+    }
+  ]
+}

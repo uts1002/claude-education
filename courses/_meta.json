@@ -1,0 +1,67 @@
+{
+  "siteTitle": "AI Fluency 학습 허브",
+  "subtitle": "Anthropic Academy 강의를 한국어로 정리한 나만의 학습 공간",
+  "owner": "다정초 엄태식",
+  "courses": [
+    {
+      "id": "aiff",
+      "title": "AI Fluency 코어 — 프레임워크와 기초",
+      "subtitle": "AI Fluency Framework & Foundations",
+      "description": "AI Fluency의 모든 것이 시작되는 코어 코스. 4D 프레임워크의 본격 정의와 생성형 AI 작동·능력·한계까지 한 번에.",
+      "audience": "AI Fluency를 처음 진지하게 익히려는 사람 — 다른 두 코스의 전제",
+      "lessons": 12,
+      "color": "teal",
+      "order": 0
+    },
+    {
+      "id": "aif4e",
+      "title": "교육자를 위한 AI Fluency",
+      "subtitle": "AI Fluency for Educators",
+      "description": "AI를 내 수업·자료 제작에 어떻게 녹여 넣을지 — 4D 프레임워크를 교사의 일상에 적용하는 코스",
+      "audience": "AI Fluency를 본인 교수 실천에 적용하고 싶은 교사",
+      "lessons": 4,
+      "color": "teal",
+      "order": 1
+    },
+    {
+      "id": "taif",
+      "title": "AI Fluency 가르치기",
+      "subtitle": "Teaching the AI Fluency Framework",
+      "description": "4D 프레임워크를 학생·동료 교사에게 어떻게 가르칠 것인가 — 교수법·평가·과제 설계 코스",
+      "audience": "AI Fluency를 학생이나 동료에게 전달하려는 교사",
+      "lessons": 7,
+      "color": "indigo",
+      "order": 2
+    }
+  ],
+  "learningPath": {
+    "description": "전체 23개 차시의 권장 학습 순서. 코어(aiff) → 교육자용(aif4e) → 가르치기(taif). 화살표는 의존 관계.",
+    "edges": [
+      {"from": "aiff/02a-why-ai-fluency", "to": "aiff/02b-4d-framework"},
+      {"from": "aiff/02b-4d-framework", "to": "aiff/03a-what-is-genai"},
+      {"from": "aiff/03a-what-is-genai", "to": "aiff/03b-capabilities-limits"},
+      {"from": "aiff/03b-capabilities-limits", "to": "aiff/04-delegation"},
+      {"from": "aiff/04-delegation", "to": "aiff/05-project-planning"},
+      {"from": "aiff/05-project-planning", "to": "aiff/06-description"},
+      {"from": "aiff/06-description", "to": "aiff/07-prompting"},
+      {"from": "aiff/07-prompting", "to": "aiff/08-discernment"},
+      {"from": "aiff/08-discernment", "to": "aiff/09-des-dis-loop"},
+      {"from": "aiff/09-des-dis-loop", "to": "aiff/10-diligence"},
+      {"from": "aiff/10-diligence", "to": "aiff/11-conclusion"},
+      {"from": "aiff/11-conclusion", "to": "aif4e/01-welcome"},
+
+      {"from": "aif4e/01-welcome", "to": "aif4e/02-framework"},
+      {"from": "aif4e/02-framework", "to": "aif4e/03-course"},
+      {"from": "aif4e/02-framework", "to": "aif4e/04-materials"},
+      {"from": "aif4e/03-course", "to": "aif4e/04-materials"},
+      {"from": "aif4e/04-materials", "to": "taif/01-welcome"},
+
+      {"from": "taif/01-welcome", "to": "taif/02-del-dil"},
+      {"from": "taif/02-del-dil", "to": "taif/03-des-dis"},
+      {"from": "taif/03-des-dis", "to": "taif/04-assess"},
+      {"from": "taif/04-assess", "to": "taif/05-assign"},
+      {"from": "taif/05-assign", "to": "taif/06-impact"},
+      {"from": "taif/06-impact", "to": "taif/07-discipline"}
+    ]
+  }
+}

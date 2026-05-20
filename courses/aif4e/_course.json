@@ -1,0 +1,13 @@
+{
+  "id": "aif4e",
+  "title": "교육자를 위한 AI Fluency",
+  "subtitle": "AI Fluency for Educators",
+  "source": "Anthropic Academy / Rick Dakan, Joseph Feller, Anthropic (CC BY-NC-SA 4.0)",
+  "summary": "AI를 도구가 아니라 '생각의 동료'로 받아들이면, 수업 설계도 자료 제작도 달라진다. 이 코스는 4D 프레임워크(Delegation·Description·Discernment·Diligence)를 교사 본인의 교수 실천에 적용하는 법을 다룬다.",
+  "lessons": [
+    "01-welcome",
+    "02-framework",
+    "03-course",
+    "04-materials"
+  ]
+}

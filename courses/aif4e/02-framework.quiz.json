@@ -1,0 +1,78 @@
+{
+  "title": "이해 확인 — 4D 프레임워크",
+  "passingScore": 4,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "강의가 학습 상황에서 권장하는 AI 사용 방식은?",
+      "options": [
+        "Automation — AI가 내 일을 대신해주는 방식",
+        "Augmentation — AI가 내 일을 더 잘하게 돕는 방식",
+        "AI가 학습 결과까지 책임지는 방식",
+        "AI 없이 사람만으로 일하는 방식"
+      ],
+      "answer": 1,
+      "explanation": "강의는 학습에서는 AI가 우리 일을 대신해주는 게 아니라(Automation), 우리가 더 잘하게 돕는(Augmentation) 방식을 권합니다."
+    },
+    {
+      "type": "mcq",
+      "question": "Delegation에 포함되는 3가지 인식이 아닌 것은?",
+      "options": [
+        "Problem Awareness (문제 인식)",
+        "Platform Awareness (도구 인식)",
+        "Performance Awareness (성능 인식)",
+        "Task Delegation (작업 분담)"
+      ],
+      "answer": 2,
+      "explanation": "Delegation의 3가지는 Problem Awareness, Platform Awareness, Task Delegation입니다. 'Performance'는 Description·Discernment의 하위 항목이에요."
+    },
+    {
+      "type": "mcq",
+      "question": "Description의 3가지 차원 — Product / Process / Performance가 각각 다루는 것을 옳게 짝지은 것은?",
+      "options": [
+        "Product: 어떻게 일할지 / Process: 무엇을 만들지 / Performance: 어떻게 행동할지",
+        "Product: 무엇을 만들지 / Process: 어떻게 일할지 / Performance: 어떻게 행동할지",
+        "Product: 어떻게 행동할지 / Process: 무엇을 만들지 / Performance: 어떻게 일할지",
+        "Product: 결과 평가 / Process: 책임 / Performance: 도구 선택"
+      ],
+      "answer": 1,
+      "explanation": "Product=결과물, Process=일하는 방식, Performance=AI가 보일 행동 톤. 헷갈리기 쉬운데 'P-Pr-Pe' 순서대로 외워두면 좋아요."
+    },
+    {
+      "type": "mcq",
+      "question": "Discernment에 대한 설명으로 가장 정확한 것은?",
+      "options": [
+        "AI가 만든 결과의 오류만 찾아내는 능력이다",
+        "AI 결과를 그대로 받아들이는 능력이다",
+        "AI 결과의 잘못된 점도, 내가 못 본 좋은 점도 모두 알아보는 능력이다",
+        "AI 결과를 다른 AI에게 다시 검토시키는 기술이다"
+      ],
+      "answer": 2,
+      "explanation": "강의는 명확히 말합니다 — Discernment는 오류 사냥이 아니라, 'AI가 보여준 새로운 관점도 알아보는' 능력입니다."
+    },
+    {
+      "type": "mcq",
+      "question": "Diligence에 대한 다음 진술 중 강의의 입장과 가장 가까운 것은?",
+      "options": [
+        "Diligence는 학교 규정만 잘 지키면 충족된다",
+        "AI가 초안을 쓰면 그 책임은 AI에게 있다",
+        "AI 사용에 대한 솔직한 공개와 결과물에 대한 책임이 핵심이다",
+        "AI를 가능한 한 적게 쓰는 것이 Diligence다"
+      ],
+      "answer": 2,
+      "explanation": "Diligence는 규정 준수가 아니라 '떳떳한 사용'입니다. 어떻게 썼는지 솔직히 밝히고(Transparency), 최종 결과물은 내가 책임지는(Deployment) 것이 핵심이에요."
+    },
+    {
+      "type": "mcq",
+      "question": "Description과 Discernment의 관계로 가장 맞는 것은?",
+      "options": [
+        "Description은 처음에 한 번만, Discernment는 끝에 한 번만 사용한다",
+        "두 가지는 서로 무관하게 따로 작동한다",
+        "둘은 끝없는 피드백 루프를 이루며, 이 반복에서 진짜 AI Fluency가 자란다",
+        "Description이 완벽하면 Discernment는 필요 없다"
+      ],
+      "answer": 2,
+      "explanation": "강의의 핵심 메시지 중 하나입니다 — 'Description → 결과 → Discernment → 다시 Description 다듬기'의 반복이 AI Fluency가 자라는 자리입니다."
+    }
+  ]
+}

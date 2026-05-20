@@ -1,0 +1,66 @@
+{
+  "title": "이해 확인 — Delegation–Diligence 루프",
+  "passingScore": 3,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "Delegation-Diligence 루프의 핵심 인사이트는?",
+      "options": [
+        "둘은 별개의 체크리스트로, 순서대로 따로 처리한다",
+        "Delegation 6개·Diligence 6개로 총 12개의 단계가 있다",
+        "둘은 하나의 대화이며 서로 끊임없이 영향을 준다",
+        "Diligence는 Delegation이 끝난 후에만 다룬다"
+      ],
+      "answer": 2,
+      "explanation": "강의의 'aha moment' — Delegation 3개와 Diligence 3개는 따로 떨어진 리스트가 아니라 *하나의 대화*입니다. 양방향으로 서로를 빚어요."
+    },
+    {
+      "type": "mcq",
+      "question": "Diligence가 Delegation을 *바꾸는* 사례로 가장 가까운 것은?",
+      "options": [
+        "AI에게 더 화려한 출력을 요구하기",
+        "AI 사용 시간을 늘려 효율을 높이기",
+        "응답자 목소리를 정확히 대변할 책임 때문에 '서사 해석은 내가, AI는 패턴 분석만'으로 분담을 재구성하기",
+        "AI에게 윤리적으로 행동하라고 프롬프트로 지시하기"
+      ],
+      "answer": 2,
+      "explanation": "강의의 예시 — 책임감(Deployment Diligence)이 Delegation을 *재편*합니다. 책임감이 더 좋은 분담을 만든 거예요."
+    },
+    {
+      "type": "mcq",
+      "question": "강의가 권하는 양방향 시나리오 수업의 *핵심 효과*는?",
+      "options": [
+        "학생이 어떤 접근이 *정답*인지 알게 된다",
+        "두 출발점에서 시작했을 때 어느 쪽이 *어떤 통찰을 드러내는지* 비교하며 사고를 확장한다",
+        "Delegation을 먼저 하는 것이 항상 옳다는 걸 학생이 깨닫는다",
+        "Diligence를 무시해도 된다는 걸 학생이 알게 된다"
+      ],
+      "answer": 1,
+      "explanation": "강의는 *비교*를 통해 양방향 각각이 드러내는 통찰을 학생이 *직접* 경험하게 하는 게 핵심이라고 합니다."
+    },
+    {
+      "type": "mcq",
+      "question": "이 루프가 잘 작동할 때 학생에게서 나타나는 신호가 아닌 것은?",
+      "options": [
+        "선택의 이유를 근거와 함께 설명할 수 있다",
+        "제약을 창의의 촉매로 다룬다",
+        "AI에게 모든 책임 결정을 위임한다",
+        "확장된 협업도 자신 있게 한다 — 책임 체계가 명확하니까"
+      ],
+      "answer": 2,
+      "explanation": "AI에게 책임을 위임하는 건 잘 작동하는 *반대* 신호입니다. 강의는 책임은 *사람이* 진다는 것을 분명히 합니다."
+    },
+    {
+      "type": "mcq",
+      "question": "강의가 말하는 'Diligence는 능력을 어떻게 만드나'에 가장 가까운 것은?",
+      "options": [
+        "능력을 *제한*해서 안전하게 만든다",
+        "능력을 *명료하게* 해서 더 자신 있게 확장하게 만든다",
+        "능력에 별다른 영향을 주지 않는다",
+        "능력을 어렵게 만들어 학생이 AI를 안 쓰게 한다"
+      ],
+      "answer": 1,
+      "explanation": "강의의 핵심 메시지 — 'Accountability enhances agency and creativity.' 책임감은 *축소*가 아니라 *명료화*입니다."
+    }
+  ]
+}
