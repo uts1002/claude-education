@@ -2681,6 +2681,8 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
   });
 
   function parseFrontmatter(text) {
+    // CRLF/CR을 LF로 정규화 — git autocrlf로 변환된 파일도 안전하게
+    text = String(text || '').replace(/\r\n?/g, '\n');
     const m = text.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
     if (!m) return { frontmatter:{}, body:text };
     const fm = {};
@@ -2711,10 +2713,46 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     catch { return newState(); }
   }
   function newState() {
-    return { progress:{}, quizResults:{}, notes:{}, highlights:{}, lastLesson:null };
+    return { progress:{}, quizResults:{}, notes:{}, highlights:{}, lastLesson:null, expandedCourse:null };
   }
   function saveState() {
     localStorage.setItem(STATE_KEY, JSON.stringify(state));
+  }
+
+  // ───────── 친근한 라벨 ─────────
+  // 'aif4e' 같은 코드명 대신 화면에는 '교사용' 같은 짧은 한국어 라벨을 노출
+  const COURSE_LABELS = {
+    aiff:  '코어',
+    aif4e: '교사용',
+    taif:  '가르치기'
+  };
+  function courseLabel(courseId) {
+    return COURSE_LABELS[courseId] || courseId;
+  }
+  /** "aiff/02b-4d-framework" → { courseId, lessonSlug, index1, title, courseLabel } */
+  function lessonInfo(fullId) {
+    const [cid, lid] = String(fullId || '').split('/');
+    const course = meta.courses.find(c => c.id === cid);
+    const idx = course ? course.lessons.indexOf(lid) : -1;
+    const lesson = lessons[fullId];
+    return {
+      courseId: cid,
+      lessonSlug: lid,
+      index1: idx >= 0 ? idx + 1 : null,
+      title: lesson?.frontmatter?.title || lid,
+      courseLabel: courseLabel(cid),
+    };
+  }
+  /** 화면에 표시할 짧은 라벨 — 예: "교사용 · 2차시" */
+  function lessonShortLabel(fullId) {
+    const info = lessonInfo(fullId);
+    return info.index1 ? `${info.courseLabel} · ${info.index1}차시` : info.courseLabel;
+  }
+  /** 좀 더 긴 라벨 — 예: "교사용 · 2차시 · 4D 프레임워크 — AI Fluency의 네 기둥" */
+  function lessonLongLabel(fullId) {
+    const info = lessonInfo(fullId);
+    const head = info.index1 ? `${info.courseLabel} · ${info.index1}차시` : info.courseLabel;
+    return `${head} · ${info.title}`;
   }
 
   // ───────── 뷰 라우터 ─────────
@@ -2754,22 +2792,48 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     }
   }
 
+  /** 현재 펼쳐져야 하는 코스 — 사용자가 명시한 것 > 현재 보는 강의의 코스 > 첫 코스 */
+  function activeExpandedCourse() {
+    if (state.expandedCourse && meta.courses.some(c => c.id === state.expandedCourse)) {
+      return state.expandedCourse;
+    }
+    if (currentLessonId) {
+      const cid = currentLessonId.split('/')[0];
+      if (meta.courses.some(c => c.id === cid)) return cid;
+    }
+    return meta.courses[0]?.id;
+  }
+
   function courseCard(c) {
     const completed = c.lessons.filter(l => state.progress[`${c.id}/${l}`]?.completed).length;
     const pct = Math.round(100 * completed / c.lessons.length);
+    const isOpen = activeExpandedCourse() === c.id;
+    const label = courseLabel(c.id);
     return `
       <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-        <div class="px-4 pt-4 pb-3">
-          <div class="text-xs text-slate-500 font-medium">${escapeHtml(c.subtitle)}</div>
-          <div class="font-bold text-slate-900 mt-0.5">${escapeHtml(c.title)}</div>
-          <div class="mt-3 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-            <div class="h-full bg-brand-500 transition-all" style="width:${pct}%"></div>
-          </div>
-          <div class="mt-1 text-xs text-slate-500">${completed}/${c.lessons.length}차시 완료</div>
-        </div>
-        <ul class="divide-y divide-slate-100 border-t border-slate-100">
-          ${c.lessons.map((lid, i) => lessonRow(c.id, lid, i+1)).join('')}
-        </ul>
+        <button type="button" data-action="toggle-course" data-id="${c.id}"
+          class="w-full text-left px-4 pt-4 pb-3 hover:bg-slate-50 transition flex items-start gap-3"
+          aria-expanded="${isOpen}">
+          <span class="flex-1 min-w-0">
+            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-700 bg-brand-50 px-2 py-0.5 rounded-full">
+              ${escapeHtml(label)}
+            </span>
+            <span class="block font-bold text-slate-900 mt-1.5 leading-snug">${escapeHtml(c.title)}</span>
+            <span class="mt-2.5 h-1.5 bg-slate-100 rounded-full overflow-hidden block">
+              <span class="h-full bg-brand-500 transition-all block" style="width:${pct}%"></span>
+            </span>
+            <span class="mt-1 text-xs text-slate-500 block">${completed}/${c.lessons.length}차시 완료</span>
+          </span>
+          <svg class="w-5 h-5 text-slate-400 mt-1 flex-shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}"
+               fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        ${isOpen ? `
+          <ul class="divide-y divide-slate-100 border-t border-slate-100">
+            ${c.lessons.map((lid, i) => lessonRow(c.id, lid, i+1)).join('')}
+          </ul>
+        ` : ''}
       </div>
     `;
   }
@@ -2789,7 +2853,8 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
             ${done ? '✓' : idx}
           </span>
           <span class="flex-1 min-w-0">
-            <span class="block text-sm font-medium ${active ? 'text-brand-800' : 'text-slate-800'} leading-snug">${escapeHtml(title)}</span>
+            <span class="text-[11px] text-slate-500 leading-tight">${idx}차시</span>
+            <span class="block text-sm font-medium ${active ? 'text-brand-800' : 'text-slate-800'} leading-snug mt-0.5">${escapeHtml(title)}</span>
             ${quizScore !== undefined ? `<span class="text-xs text-slate-500 mt-0.5 block">퀴즈 ${quizScore}점</span>` : ''}
           </span>
         </button>
@@ -2900,13 +2965,17 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     // 다음 추천
     const next = (fm.nextSuggested && fm.nextSuggested.length) ? fm.nextSuggested : findDefaultNext(id);
 
+    const info = lessonInfo(id);
     return `
       <article class="space-y-5">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
           <div class="flex flex-wrap items-center gap-2 text-xs">
-            ${(fm.tags||[]).map(t => `<span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">${escapeHtml(t)}</span>`).join('')}
+            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-700 bg-brand-50 px-2 py-0.5 rounded-full">
+              ${escapeHtml(info.courseLabel)}${info.index1 ? ` · ${info.index1}차시` : ''}
+            </span>
             ${fm.duration ? `<span class="text-slate-500">· ${escapeHtml(fm.duration)}</span>`: ''}
             ${fm.difficulty ? `<span class="text-slate-500">· 난이도 ${'●'.repeat(Number(fm.difficulty))}${'○'.repeat(3-Number(fm.difficulty))}</span>`: ''}
+            ${(fm.tags||[]).map(t => `<span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">${escapeHtml(t)}</span>`).join('')}
           </div>
           <h1 class="mt-3 text-2xl sm:text-3xl font-bold text-slate-900">${escapeHtml(fm.title||id)}</h1>
           ${fm.metaphor ? `
@@ -2951,9 +3020,11 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
           ${next.map(nid => {
             const nl = lessons[nid];
             if (!nl) return '';
+            const ni = lessonInfo(nid);
             return `<button data-action="open-lesson" data-id="${nid}"
-              class="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-800 font-semibold text-sm hover:bg-slate-200 transition">
-              다음 →  ${escapeHtml(nl.frontmatter.title || nid)}
+              class="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-800 font-semibold text-sm hover:bg-slate-200 transition text-left">
+              <span class="text-xs font-medium text-slate-500 block">다음 · ${escapeHtml(ni.courseLabel)}${ni.index1 ? ` · ${ni.index1}차시` : ''}</span>
+              <span class="block mt-0.5">${escapeHtml(nl.frontmatter.title || nid)}</span>
             </button>`;
           }).join('')}
         </div>
@@ -3015,7 +3086,7 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
           <rect x="${p.x}" y="${p.y}" width="${NODE_W}" height="${NODE_H}" rx="14" ry="14"
                 fill="${fill}" stroke="${stroke}" stroke-width="1.5" />
           <text x="${p.x + 12}" y="${p.y + 22}" fill="${textColor}" font-size="11" font-weight="600">
-            ${escapeHtml(id)}
+            ${escapeHtml(lessonShortLabel(id))}
           </text>
           <text x="${p.x + 12}" y="${p.y + 42}" fill="${textColor}" font-size="13" font-weight="700">
             ${escapeHtml(shortTitle)}
@@ -3073,8 +3144,8 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
             const trainingBlock = extractSection(l.body, '연수 자료');
             return `
               <div class="bg-white border border-slate-200 rounded-2xl p-5">
-                <div class="text-xs text-slate-500 font-medium">${escapeHtml(l.id)}</div>
-                <div class="mt-1 font-bold text-slate-900 leading-snug">${escapeHtml(fm.title || l.id)}</div>
+                <div class="text-xs font-semibold text-brand-700 bg-brand-50 inline-block px-2 py-0.5 rounded-full">${escapeHtml(lessonShortLabel(l.id))}</div>
+                <div class="mt-2 font-bold text-slate-900 leading-snug">${escapeHtml(fm.title || l.id)}</div>
                 ${fm.metaphor ? `
                   <div class="mt-3 px-3 py-2.5 rounded-xl bg-brand-50 border border-brand-100 text-brand-900 text-sm leading-relaxed">
                     <span class="font-bold">🪜 비유</span> · ${escapeHtml(fm.metaphor)}
@@ -3110,7 +3181,8 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
           const l = lessons[id];
           return `
             <div class="bg-white border border-slate-200 rounded-2xl p-5">
-              <button data-action="open-lesson" data-id="${id}" class="text-sm text-brand-700 font-semibold hover:underline">
+              <div class="text-xs font-semibold text-brand-700 bg-brand-50 inline-block px-2 py-0.5 rounded-full">${escapeHtml(lessonShortLabel(id))}</div>
+              <button data-action="open-lesson" data-id="${id}" class="block mt-2 text-sm text-slate-900 font-bold hover:text-brand-700 hover:underline text-left">
                 ${escapeHtml(l?.frontmatter?.title || id)} →
               </button>
               <div class="mt-2 whitespace-pre-wrap text-sm text-slate-800 leading-relaxed">${escapeHtml(note)}</div>
@@ -3155,8 +3227,8 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
         ` : hits.map(h => `
           <button data-action="open-lesson" data-id="${h.id}"
             class="block w-full text-left bg-white border border-slate-200 rounded-2xl p-5 hover:bg-slate-50 transition">
-            <div class="text-xs text-slate-500">${escapeHtml(h.id)}</div>
-            <div class="mt-1 font-bold text-slate-900">${escapeHtml(h.title)}</div>
+            <div class="text-xs font-semibold text-brand-700 bg-brand-50 inline-block px-2 py-0.5 rounded-full">${escapeHtml(lessonShortLabel(h.id))}</div>
+            <div class="mt-2 font-bold text-slate-900">${escapeHtml(h.title)}</div>
             <div class="mt-2 text-sm text-slate-700 leading-relaxed">…${highlightSnippet(h.snippet, needle)}…</div>
           </button>
         `).join('')}
@@ -3316,8 +3388,22 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
       el.addEventListener('click', (e) => {
         const action = el.dataset.action;
         const id = el.dataset.id;
-        if (action === 'open-lesson') setView('lesson', id);
+        if (action === 'open-lesson') {
+          // 강의를 열면 그 강의가 속한 코스를 자동으로 펼침
+          const cid = String(id || '').split('/')[0];
+          if (cid && meta.courses.some(c => c.id === cid)) {
+            state.expandedCourse = cid;
+            saveState();
+          }
+          setView('lesson', id);
+        }
         else if (action === 'go-home') setView('home');
+        else if (action === 'toggle-course') {
+          // 같은 코스 헤더 다시 누르면 접힘, 다른 코스 누르면 그쪽 펼침
+          state.expandedCourse = (state.expandedCourse === id) ? null : id;
+          saveState();
+          renderSidebar();
+        }
         else if (action === 'toggle-complete') {
           state.progress[id] = state.progress[id] || {};
           state.progress[id].completed = !state.progress[id].completed;
