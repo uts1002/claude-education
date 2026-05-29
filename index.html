@@ -27,36 +27,53 @@
 </script>
 <style>
   :root { --brand: #0d9488; }
+  html { scroll-behavior: smooth; }
   html, body { font-family: 'Pretendard', system-ui, sans-serif; letter-spacing: -0.01em; }
-  body { background: #f8fafc; color: #0f172a; }
-  /* 마크다운 본문 스타일 */
-  .prose h1 { font-size: 1.875rem; font-weight: 700; margin: 0 0 1rem; color: #0f172a; }
-  .prose h2 { font-size: 1.375rem; font-weight: 700; margin: 2rem 0 .75rem; color: #0f172a; padding-top: .25rem; border-top: 1px solid #f1f5f9; }
-  .prose h2:first-of-type { border-top: none; padding-top: 0; margin-top: 1rem; }
-  .prose h3 { font-size: 1.125rem; font-weight: 700; margin: 1.5rem 0 .5rem; color: #0f172a; }
-  .prose h4 { font-size: 1rem; font-weight: 700; margin: 1.25rem 0 .5rem; color: #334155; }
-  .prose p  { margin: .65rem 0; line-height: 1.75; color: #1f2937; font-size: 1rem; }
-  .prose ul { margin: .65rem 0 .65rem 1rem; }
-  .prose ol { margin: .65rem 0 .65rem 1.25rem; list-style: decimal; }
-  .prose li { margin: .35rem 0; line-height: 1.7; }
-  .prose ul li { list-style: disc; margin-left: .25rem; }
+  body { background: #f5f6f8; color: #0f172a; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+  /* 키보드 포커스만 또렷하게 (마우스 클릭은 깔끔하게) */
+  :focus-visible { outline: 2px solid #0d9488; outline-offset: 2px; border-radius: 6px; }
+
+  /* 콘텐츠 전환 페이드 */
+  @keyframes hub-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .hub-fade { animation: hub-fade .22s ease both; }
+  @media (prefers-reduced-motion: reduce) { .hub-fade { animation: none; } html { scroll-behavior: auto; } }
+
+  /* ───────── 마크다운 본문(prose) — 읽기 편한 한국어 타이포 ───────── */
+  .prose { max-width: 72ch; font-size: 1.0625rem; line-height: 1.85; color: #334155; }
+  .prose > :first-child { margin-top: 0 !important; }
+  .prose h1 { font-size: 1.75rem; font-weight: 800; margin: 0 0 1rem; color: #0f172a; line-height: 1.3; }
+  .prose h2 { font-size: 1.4rem; font-weight: 800; margin: 2.25rem 0 .85rem; color: #0f172a; line-height: 1.35; padding-top: 1.25rem; border-top: 1px solid #e9edf2; }
+  .prose h2:first-of-type { border-top: none; padding-top: 0; margin-top: .5rem; }
+  .prose h3 { font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 .6rem; color: #0f172a; }
+  .prose h4 { font-size: 1.0625rem; font-weight: 700; margin: 1.35rem 0 .5rem; color: #0f766e; }
+  .prose p  { margin: .8rem 0; }
+  .prose ul { margin: .8rem 0 .8rem .35rem; }
+  .prose ol { margin: .8rem 0 .8rem .75rem; list-style: decimal; }
+  .prose li { margin: .45rem 0; line-height: 1.8; padding-left: .15rem; }
+  .prose ul li { list-style: disc; margin-left: 1rem; }
+  .prose li::marker { color: #14b8a6; }
   .prose strong { font-weight: 700; color: #0f172a; }
   .prose em { color: #0f766e; font-style: normal; font-weight: 600; }
-  .prose blockquote { border-left: 4px solid #14b8a6; background: #f0fdfa; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 .75rem .75rem 0; color: #134e4a; }
-  .prose blockquote p { margin: 0; color: inherit; }
-  .prose code { background: #f1f5f9; padding: .15rem .4rem; border-radius: .25rem; font-size: .9em; color: #0f766e; }
-  .prose pre { background: #f1f5f9; padding: 1rem; border-radius: .75rem; overflow-x: auto; margin: 1rem 0; }
-  .prose pre code { background: transparent; color: #0f172a; padding: 0; }
-  .prose table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .95rem; }
-  .prose th, .prose td { border: 1px solid #e2e8f0; padding: .5rem .75rem; text-align: left; vertical-align: top; }
-  .prose th { background: #f8fafc; font-weight: 700; color: #0f172a; }
-  .prose hr { border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0; }
-  .prose a { color: #0d9488; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  .prose blockquote { border-left: 4px solid #14b8a6; background: #f0fdfa; padding: .85rem 1.1rem; margin: 1.25rem 0; border-radius: 0 .9rem .9rem 0; color: #115e59; font-size: 1rem; }
+  .prose blockquote p { margin: .25rem 0; color: inherit; }
+  .prose blockquote :first-child { margin-top: 0; } .prose blockquote :last-child { margin-bottom: 0; }
+  .prose code { background: #eef2f6; padding: .15rem .42rem; border-radius: .35rem; font-size: .88em; color: #0f766e; font-weight: 600; }
+  .prose pre { background: #0f172a; padding: 1rem 1.15rem; border-radius: .9rem; overflow-x: auto; margin: 1.25rem 0; }
+  .prose pre code { background: transparent; color: #e2e8f0; padding: 0; font-weight: 400; }
+  /* 표 — 카드처럼 둥글게 */
+  .prose table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 1.35rem 0; font-size: .98rem; border: 1px solid #e2e8f0; border-radius: .85rem; overflow: hidden; }
+  .prose th, .prose td { border-bottom: 1px solid #eef2f6; padding: .7rem .9rem; text-align: left; vertical-align: top; line-height: 1.65; }
+  .prose tr:last-child td { border-bottom: none; }
+  .prose th { background: #f1f5f9; font-weight: 700; color: #0f172a; border-bottom: 1px solid #e2e8f0; }
+  .prose tbody tr:nth-child(even) td { background: #fafbfc; }
+  .prose hr { border: none; border-top: 1px solid #e9edf2; margin: 2rem 0; }
+  .prose a { color: #0d9488; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; font-weight: 600; }
   .prose a:hover { color: #0f766e; }
 
   /* 하이라이트 */
-  mark.user-highlight { background: #fef08a; padding: 0 2px; border-radius: 3px; cursor: pointer; }
-  mark.user-highlight:hover { background: #fde047; }
+  mark.user-highlight { background: #fde68a; padding: 0 2px; border-radius: 3px; cursor: pointer; }
+  mark.user-highlight:hover { background: #fcd34d; }
 
   /* 스크롤바 가볍게 */
   .scroll-y::-webkit-scrollbar { width: 8px; }
@@ -80,24 +97,27 @@
 <!-- 헤더 -->
 <header class="bg-white border-b border-slate-200 sticky top-0 z-30 no-print">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3">
-    <button id="btn-home" class="flex items-center gap-2 font-bold text-lg text-slate-900 hover:text-brand-700 transition">
-      <span class="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-brand-600 text-white text-sm font-bold">AI</span>
-      <span>Fluency 학습 허브</span>
+    <button id="btn-home" class="flex items-center gap-2.5 font-bold text-base sm:text-lg text-slate-900 hover:text-brand-700 transition shrink-0">
+      <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-brand-600 text-white text-sm font-extrabold tracking-tight">AI</span>
+      <span class="leading-tight text-left">
+        <span class="block">AI Fluency 학습 허브</span>
+        <span class="hidden sm:block text-xs font-medium text-slate-400 -mt-0.5">다정초 엄태식</span>
+      </span>
     </button>
-    <div class="hidden sm:block text-sm text-slate-500 ml-2">· 다정초 엄태식</div>
     <div class="flex-1"></div>
-    <div class="relative w-full max-w-xs">
-      <input id="search-input" type="text" placeholder="강의·문장 검색…"
-             class="w-full py-2.5 pl-10 pr-3 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:ring-2 focus:ring-brand-500 focus:border-transparent focus:bg-white outline-none transition" />
-      <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-5.6-5.6m2.6-5.4a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg>
+    <div class="relative w-full max-w-[15rem]">
+      <label for="search-input" class="sr-only">강의·문장 검색</label>
+      <input id="search-input" type="search" placeholder="강의·문장 검색"
+             class="w-full py-2.5 pl-10 pr-3 rounded-xl border border-slate-200 bg-slate-50 text-sm placeholder:text-slate-400 focus:ring-2 focus:ring-brand-500 focus:border-transparent focus:bg-white outline-none transition" />
+      <svg aria-hidden="true" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-5.6-5.6m2.6-5.4a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg>
     </div>
   </div>
   <!-- 뷰 탭 -->
-  <nav class="max-w-7xl mx-auto px-4 sm:px-6 flex gap-1 -mt-1">
-    <button data-view="home"  class="view-tab px-3 py-2 text-sm rounded-t-lg font-medium text-slate-600 hover:text-brand-700">홈</button>
-    <button data-view="path"  class="view-tab px-3 py-2 text-sm rounded-t-lg font-medium text-slate-600 hover:text-brand-700">학습 경로</button>
-    <button data-view="cards" class="view-tab px-3 py-2 text-sm rounded-t-lg font-medium text-slate-600 hover:text-brand-700">비유·연수 카드</button>
-    <button data-view="notes" class="view-tab px-3 py-2 text-sm rounded-t-lg font-medium text-slate-600 hover:text-brand-700">내 메모</button>
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 pb-2.5 flex gap-1.5 overflow-x-auto">
+    <button data-view="home"  class="view-tab whitespace-nowrap px-3.5 py-2 text-sm rounded-full font-semibold text-slate-600 hover:bg-slate-100 transition">홈</button>
+    <button data-view="path"  class="view-tab whitespace-nowrap px-3.5 py-2 text-sm rounded-full font-semibold text-slate-600 hover:bg-slate-100 transition">학습 경로</button>
+    <button data-view="cards" class="view-tab whitespace-nowrap px-3.5 py-2 text-sm rounded-full font-semibold text-slate-600 hover:bg-slate-100 transition">비유·연수 카드</button>
+    <button data-view="notes" class="view-tab whitespace-nowrap px-3.5 py-2 text-sm rounded-full font-semibold text-slate-600 hover:bg-slate-100 transition">내 메모</button>
   </nav>
 </header>
 
@@ -105,7 +125,7 @@
 <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-1 lg:grid-cols-[280px,1fr] gap-6">
 
   <!-- 사이드바: 코스/차시 목록 -->
-  <aside id="sidebar" class="lg:sticky lg:top-[110px] lg:max-h-[calc(100vh-130px)] scroll-y lg:overflow-y-auto space-y-4 no-print">
+  <aside id="sidebar" class="lg:sticky lg:top-[128px] lg:max-h-[calc(100vh-148px)] scroll-y lg:overflow-y-auto space-y-3 no-print">
     <!-- JS가 채움 -->
   </aside>
 
@@ -135,17 +155,17 @@
   "subtitle":  "Anthropic Academy 강의를 한국어로 정리한 나만의 학습 공간",
   "owner":     "다정초 엄태식",
   "courses": [
-    { "id":"aiff", "title":"AI Fluency 코어 — 프레임워크와 기초",
+    { "id":"aiff", "title":"기초 과정 — AI와 잘 일하는 법",
       "subtitle":"AI Fluency Framework & Foundations",
-      "description":"AI Fluency의 모든 것이 시작되는 코어 코스. 4D의 본격 정의와 생성형 AI 작동·능력·한계까지.",
+      "description":"가장 먼저 듣는 출발 과정입니다. ‘AI와 일하는 4가지 능력(4D)’과 생성형 AI가 어떻게 작동하고, 무엇을 잘하고 못하는지까지 차근차근 익혀요.",
       "lessons":["02a-why-ai-fluency","02b-4d-framework","03a-what-is-genai","03b-capabilities-limits","04-delegation","05-project-planning","06-description","07-prompting","08-discernment","09-des-dis-loop","10-diligence","11-conclusion"] },
-    { "id":"aif4e", "title":"교육자를 위한 AI Fluency",
+    { "id":"aif4e", "title":"교사 활용 — 내 수업에 AI 녹이기",
       "subtitle":"AI Fluency for Educators",
-      "description":"AI를 내 수업·자료 제작에 어떻게 녹여 넣을지 — 4D 프레임워크를 교사의 일상에 적용하는 코스",
+      "description":"배운 4가지 능력을 교사의 하루에 적용하는 과정입니다. 수업 준비와 자료 제작에 AI를 어떻게 끌어들일지 다뤄요.",
       "lessons":["01-welcome","02-framework","03-course","04-materials"] },
-    { "id":"taif",  "title":"AI Fluency 가르치기",
+    { "id":"taif",  "title":"가르치기 — 학생에게 AI Fluency를",
       "subtitle":"Teaching the AI Fluency Framework",
-      "description":"4D 프레임워크를 학생·동료 교사에게 어떻게 가르칠 것인가 — 교수법·평가·과제 설계 코스",
+      "description":"4가지 능력을 학생·동료 교사에게 가르치는 과정입니다. 교수법·평가·과제 설계를 함께 살펴봐요.",
       "lessons":["01-welcome","02-del-dil","03-des-dis","04-assess","05-assign","06-impact","07-discipline"] }
   ],
   "learningPath": {
@@ -2681,8 +2701,11 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
   });
 
   function parseFrontmatter(text) {
-    // CRLF/CR을 LF로 정규화 — git autocrlf로 변환된 파일도 안전하게
-    text = String(text || '').replace(/\r\n?/g, '\n');
+    // CRLF/CR을 LF로 정규화 + 앞뒤 공백 제거.
+    // <script type="text/markdown"> 태그 안의 textContent는 항상 '\n---'로
+    // 시작하므로 trim 없이는 ^--- 정규식이 매칭에 실패해 프론트매터를 통째로
+    // 본문으로 흘려보낸다(= 화면에 raw "title: …" 코드가 노출되는 원인).
+    text = String(text || '').replace(/\r\n?/g, '\n').trim();
     const m = text.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
     if (!m) return { frontmatter:{}, body:text };
     const fm = {};
@@ -2720,10 +2743,11 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
   }
 
   // ───────── 친근한 라벨 ─────────
-  // 'aif4e' 같은 코드명 대신 화면에는 '교사용' 같은 짧은 한국어 라벨을 노출
+  // 'aiff/aif4e/taif' 같은 내부 코드는 화면에 절대 노출하지 않는다.
+  // 짧은 한국어 이름으로만 보여준다.
   const COURSE_LABELS = {
-    aiff:  '코어',
-    aif4e: '교사용',
+    aiff:  '기초 과정',
+    aif4e: '교사 활용',
     taif:  '가르치기'
   };
   function courseLabel(courseId) {
@@ -2755,6 +2779,27 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     return `${head} · ${info.title}`;
   }
 
+  // ───────── 아이콘 (lucide 기반 인라인 SVG) ─────────
+  // UI 헤딩·버튼·카드에는 이모지 대신 의미가 또렷한 아이콘을 쓴다.
+  const ICON_PATHS = {
+    check:   '<path d="M20 6 9 17l-5-5"/>',
+    arrow:   '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+    book:    '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+    note:    '<path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/>',
+    quiz:    '<path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/>',
+    route:   '<circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/>',
+    layers:  '<path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
+    clock:   '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    lightbulb:'<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/>',
+    compass: '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
+    home:    '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+    gauge:   '<path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/>',
+  };
+  function ic(name, cls = 'w-5 h-5') {
+    const p = ICON_PATHS[name] || '';
+    return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+  }
+
   // ───────── 뷰 라우터 ─────────
   let currentView = 'home';
   let currentLessonId = null;
@@ -2762,14 +2807,15 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
   function setView(view, lessonId=null) {
     currentView = view;
     currentLessonId = lessonId;
+    // 검색 뷰는 별도 탭이 없으므로 어떤 탭도 활성화하지 않음
     document.querySelectorAll('.view-tab').forEach(b => {
       const active = b.dataset.view === view;
-      b.classList.toggle('bg-white', active);
-      b.classList.toggle('text-brand-700', active);
-      b.classList.toggle('border', active);
-      b.classList.toggle('border-b-white', active);
-      b.classList.toggle('border-slate-200', active);
-      b.classList.toggle('-mb-px', active);
+      b.classList.toggle('bg-brand-600', active);
+      b.classList.toggle('text-white', active);
+      b.classList.toggle('shadow-sm', active);
+      b.classList.toggle('text-slate-600', !active);
+      b.classList.toggle('hover:bg-slate-100', !active);
+      b.setAttribute('aria-current', active ? 'page' : 'false');
     });
     renderSidebar();
     renderContent();
@@ -2784,9 +2830,12 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     } else {
       // 다른 뷰에서도 사이드바 유지 (홈 돌아가기 버튼)
       sb.innerHTML = `
-        <button class="block w-full text-left px-4 py-3 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition" data-action="go-home">
-          <div class="text-sm text-slate-500">← 돌아가기</div>
-          <div class="font-bold text-slate-900 mt-1">강의 목록으로</div>
+        <button class="flex items-center gap-3 w-full text-left px-4 py-3 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition" data-action="go-home">
+          <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-slate-100 text-slate-600">${ic('home','w-5 h-5')}</span>
+          <span>
+            <span class="block text-xs text-slate-500">돌아가기</span>
+            <span class="block font-bold text-slate-900">홈 화면으로</span>
+          </span>
         </button>
       ` + meta.courses.map(c => courseCard(c)).join('');
     }
@@ -2809,23 +2858,25 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     const pct = Math.round(100 * completed / c.lessons.length);
     const isOpen = activeExpandedCourse() === c.id;
     const label = courseLabel(c.id);
+    const ci = meta.courses.findIndex(x => x.id === c.id) + 1;
     return `
-      <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div class="bg-white rounded-2xl border ${isOpen ? 'border-brand-200' : 'border-slate-200'} overflow-hidden transition-colors">
         <button type="button" data-action="toggle-course" data-id="${c.id}"
-          class="w-full text-left px-4 pt-4 pb-3 hover:bg-slate-50 transition flex items-start gap-3"
+          class="w-full text-left px-4 pt-4 pb-3.5 hover:bg-slate-50 transition flex items-start gap-3"
           aria-expanded="${isOpen}">
           <span class="flex-1 min-w-0">
-            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-700 bg-brand-50 px-2 py-0.5 rounded-full">
-              ${escapeHtml(label)}
+            <span class="flex items-center gap-1.5">
+              <span class="inline-flex items-center justify-center w-5 h-5 rounded-md bg-brand-50 text-brand-700 text-[11px] font-bold">${ci}</span>
+              <span class="inline-flex items-center text-xs font-semibold text-brand-700 bg-brand-50 px-2 py-0.5 rounded-full">${escapeHtml(label)}</span>
             </span>
-            <span class="block font-bold text-slate-900 mt-1.5 leading-snug">${escapeHtml(c.title)}</span>
+            <span class="block font-bold text-slate-900 mt-2 leading-snug">${escapeHtml(c.title)}</span>
             <span class="mt-2.5 h-1.5 bg-slate-100 rounded-full overflow-hidden block">
-              <span class="h-full bg-brand-500 transition-all block" style="width:${pct}%"></span>
+              <span class="h-full bg-brand-500 rounded-full transition-all block" style="width:${pct}%"></span>
             </span>
             <span class="mt-1 text-xs text-slate-500 block">${completed}/${c.lessons.length}차시 완료</span>
           </span>
           <svg class="w-5 h-5 text-slate-400 mt-1 flex-shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}"
-               fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
           </svg>
         </button>
@@ -2848,14 +2899,13 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     return `
       <li>
         <button data-action="open-lesson" data-id="${id}"
-          class="w-full text-left px-4 py-2.5 hover:bg-slate-50 transition flex items-start gap-3 ${active ? 'bg-brand-50' : ''}">
-          <span class="mt-0.5 inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${done ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-600'}">
-            ${done ? '✓' : idx}
+          class="w-full text-left px-4 py-3 hover:bg-slate-50 transition flex items-start gap-3 ${active ? 'bg-brand-50' : ''}">
+          <span class="mt-0.5 inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold shrink-0 ${done ? 'bg-brand-600 text-white' : (active ? 'bg-brand-100 text-brand-700' : 'bg-slate-100 text-slate-500')}">
+            ${done ? ic('check','w-3.5 h-3.5') : idx}
           </span>
           <span class="flex-1 min-w-0">
-            <span class="text-[11px] text-slate-500 leading-tight">${idx}차시</span>
-            <span class="block text-sm font-medium ${active ? 'text-brand-800' : 'text-slate-800'} leading-snug mt-0.5">${escapeHtml(title)}</span>
-            ${quizScore !== undefined ? `<span class="text-xs text-slate-500 mt-0.5 block">퀴즈 ${quizScore}점</span>` : ''}
+            <span class="block text-sm font-medium ${active ? 'text-brand-800' : 'text-slate-800'} leading-snug">${escapeHtml(title)}</span>
+            ${quizScore !== undefined ? `<span class="mt-1 inline-flex items-center gap-1 text-xs text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-md">퀴즈 ${quizScore}점</span>` : ''}
           </span>
         </button>
       </li>
@@ -2871,6 +2921,8 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     else if (currentView === 'cards')  el.innerHTML = renderCards();
     else if (currentView === 'notes')  el.innerHTML = renderNotes();
     else if (currentView === 'search') el.innerHTML = renderSearch(searchQuery);
+    // 부드러운 진입 애니메이션 재시작
+    el.classList.remove('hub-fade'); void el.offsetWidth; el.classList.add('hub-fade');
     afterRender();
   }
 
@@ -2878,68 +2930,100 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     const totalLessons = meta.courses.reduce((s,c)=>s+c.lessons.length, 0);
     const completed = Object.values(state.progress).filter(p=>p?.completed).length;
     const quizCount = Object.keys(state.quizResults).length;
+    const noteCount = Object.values(state.notes).filter(v => v && v.trim()).length;
     const last = state.lastLesson && lessons[state.lastLesson];
+    const overallPct = Math.round(100 * completed / totalLessons);
+
+    // 첫 화면 주 행동: 이어서 학습 > 처음 시작
+    const firstLesson = `${meta.courses[0].id}/${meta.courses[0].lessons[0]}`;
+    const ctaId = last ? state.lastLesson : firstLesson;
+    const ctaLabel = last ? '이어서 학습하기' : '기초 과정부터 시작하기';
+
+    const statTile = (label, value) => `
+      <div class="rounded-xl bg-white/10 px-3 py-2.5">
+        <div class="text-xs text-brand-50/80">${label}</div>
+        <div class="mt-0.5 text-lg font-bold">${value}</div>
+      </div>`;
+
     return `
-      <div class="space-y-6">
-        <div class="bg-gradient-to-br from-brand-600 to-brand-700 text-white rounded-2xl p-6 sm:p-8">
-          <div class="text-sm font-medium opacity-90">${escapeHtml(meta.subtitle)}</div>
-          <h1 class="mt-1 text-2xl sm:text-3xl font-bold">${escapeHtml(meta.siteTitle)}</h1>
-          <p class="mt-3 text-brand-50 leading-relaxed max-w-2xl">
-            앤트로픽 아카데미의 AI Fluency 두 코스를 한국어로 정리했어요.
-            차시별 핵심 정리·비유·연수 자료·퀴즈가 함께 있고,
-            왼쪽 목록에서 강의를 골라 시작할 수 있어요.
+      <div class="space-y-5">
+        <!-- 히어로 (단색 — 그라데이션 미사용) -->
+        <section class="bg-brand-700 text-white rounded-2xl p-6 sm:p-8 shadow-sm">
+          <div class="text-sm font-semibold text-brand-100">${escapeHtml(meta.subtitle)}</div>
+          <h1 class="mt-1.5 text-2xl sm:text-3xl font-extrabold leading-tight">${escapeHtml(meta.siteTitle)}</h1>
+          <p class="mt-3 text-brand-50/90 leading-relaxed max-w-2xl">
+            앤트로픽 아카데미의 AI Fluency 강의를 한국어로 정리한 학습 공간입니다.
+            차시마다 핵심 정리·비유·연수 자료·퀴즈가 함께 있어요. 아래에서 바로 시작해 보세요.
           </p>
-          <div class="mt-5 grid grid-cols-3 gap-2 max-w-md">
-            <div class="bg-white/10 rounded-xl p-3">
-              <div class="text-xs opacity-90">완료 차시</div>
-              <div class="text-xl font-bold mt-0.5">${completed}/${totalLessons}</div>
-            </div>
-            <div class="bg-white/10 rounded-xl p-3">
-              <div class="text-xs opacity-90">푼 퀴즈</div>
-              <div class="text-xl font-bold mt-0.5">${quizCount}</div>
-            </div>
-            <div class="bg-white/10 rounded-xl p-3">
-              <div class="text-xs opacity-90">내 메모</div>
-              <div class="text-xl font-bold mt-0.5">${Object.keys(state.notes).length}</div>
-            </div>
+          <button data-action="open-lesson" data-id="${ctaId}"
+            class="mt-5 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-brand-700 font-bold text-sm hover:bg-brand-50 transition">
+            ${ic('arrow','w-4 h-4')}<span>${ctaLabel}</span>
+          </button>
+          <div class="mt-6 grid grid-cols-3 gap-2 max-w-md">
+            ${statTile('완료 차시', `${completed}<span class="text-sm font-medium text-brand-100">/${totalLessons}</span>`)}
+            ${statTile('푼 퀴즈', quizCount)}
+            ${statTile('내 메모', noteCount)}
           </div>
-        </div>
+        </section>
 
         ${last ? `
-          <div class="bg-white border border-slate-200 rounded-2xl p-5">
-            <div class="text-xs text-slate-500 font-medium">계속 이어서 학습</div>
-            <div class="mt-1 font-bold text-slate-900">${escapeHtml(last.frontmatter.title)}</div>
-            <button data-action="open-lesson" data-id="${state.lastLesson}"
-              class="mt-3 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-600 text-white text-sm font-semibold hover:bg-brand-700 transition">
-              이어서 듣기 →
-            </button>
-          </div>
+          <button data-action="open-lesson" data-id="${state.lastLesson}"
+            class="block w-full text-left bg-white border border-slate-200 rounded-2xl p-5 hover:border-brand-300 hover:bg-brand-50/40 transition group">
+            <div class="flex items-center gap-4">
+              <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-brand-50 text-brand-700 shrink-0">${ic('arrow','w-5 h-5')}</span>
+              <span class="flex-1 min-w-0">
+                <span class="block text-xs font-semibold text-slate-500">계속 이어서 학습</span>
+                <span class="block mt-0.5 font-bold text-slate-900 truncate group-hover:text-brand-700">${escapeHtml(last.frontmatter.title || state.lastLesson)}</span>
+                <span class="block mt-0.5 text-xs text-slate-500">${escapeHtml(lessonShortLabel(state.lastLesson))}</span>
+              </span>
+            </div>
+          </button>
         ` : ''}
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          ${meta.courses.map(c => `
-            <div class="bg-white border border-slate-200 rounded-2xl p-5">
-              <div class="text-xs text-slate-500 font-medium">${escapeHtml(c.subtitle)}</div>
-              <div class="mt-1 text-lg font-bold text-slate-900">${escapeHtml(c.title)}</div>
-              <p class="mt-2 text-sm text-slate-600 leading-relaxed">${escapeHtml(c.description)}</p>
-              <button data-action="open-lesson" data-id="${c.id}/${c.lessons[0]}"
-                class="mt-4 px-4 py-2 rounded-xl bg-slate-100 text-slate-800 text-sm font-semibold hover:bg-slate-200 transition">
-                코스 시작하기 →
-              </button>
-            </div>
-          `).join('')}
+        <div>
+          <h2 class="px-1 text-sm font-bold text-slate-500">세 개의 과정</h2>
+          <div class="mt-2.5 grid grid-cols-1 lg:grid-cols-3 gap-4">
+            ${meta.courses.map((c, ci) => {
+              const done = c.lessons.filter(l => state.progress[`${c.id}/${l}`]?.completed).length;
+              const pct = Math.round(100 * done / c.lessons.length);
+              return `
+              <div class="flex flex-col bg-white border border-slate-200 rounded-2xl p-5 hover:shadow-sm transition">
+                <div class="flex items-center gap-2">
+                  <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-brand-50 text-brand-700 text-sm font-bold">${ci+1}</span>
+                  <span class="inline-flex items-center text-xs font-semibold text-brand-700 bg-brand-50 px-2 py-0.5 rounded-full">${escapeHtml(courseLabel(c.id))}</span>
+                </div>
+                <div class="mt-2.5 text-base font-bold text-slate-900 leading-snug">${escapeHtml(c.title)}</div>
+                <p class="mt-1.5 text-sm text-slate-600 leading-relaxed flex-1">${escapeHtml(c.description)}</p>
+                <div class="mt-3.5">
+                  <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                    <div class="h-full bg-brand-500 rounded-full transition-all" style="width:${pct}%"></div>
+                  </div>
+                  <div class="mt-1.5 text-xs text-slate-500">${done}/${c.lessons.length}차시 완료</div>
+                </div>
+                <button data-action="open-lesson" data-id="${c.id}/${c.lessons[0]}"
+                  class="mt-4 inline-flex items-center justify-center gap-1.5 w-full py-2.5 rounded-xl bg-slate-100 text-slate-800 text-sm font-semibold hover:bg-slate-200 transition">
+                  ${done ? '이어서 보기' : '과정 시작하기'} ${ic('arrow','w-4 h-4')}
+                </button>
+              </div>`;
+            }).join('')}
+          </div>
         </div>
 
-        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 text-sm text-amber-900 leading-relaxed">
-          <div class="font-bold mb-1">💡 새 강의를 추가하고 싶다면</div>
-          <p>
-            <code class="bg-amber-100 px-1.5 py-0.5 rounded">courses/{코스}/NN-제목.md</code>와
-            <code class="bg-amber-100 px-1.5 py-0.5 rounded">NN-제목.quiz.json</code>을 만들고
-            <code class="bg-amber-100 px-1.5 py-0.5 rounded">_course.json</code>에 등록한 뒤
-            <code class="bg-amber-100 px-1.5 py-0.5 rounded">python build.py</code>를 실행하면 자동으로 반영돼요.
-            번거로우면 Claude에게 <em>"새 강의 추가해줘"</em>라고만 해도 됩니다.
-          </p>
-        </div>
+        <details class="bg-white border border-slate-200 rounded-2xl overflow-hidden group">
+          <summary class="flex items-center gap-2.5 px-5 py-4 cursor-pointer select-none text-sm font-semibold text-slate-700 hover:bg-slate-50">
+            <span class="text-brand-600">${ic('lightbulb','w-5 h-5')}</span>
+            새 강의를 추가하려면 (관리자용)
+          </summary>
+          <div class="px-5 pb-5 pt-1 text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+            <p class="mt-3">
+              <code class="bg-slate-100 px-1.5 py-0.5 rounded">courses/{과정}/NN-제목.md</code> 와
+              <code class="bg-slate-100 px-1.5 py-0.5 rounded">NN-제목.quiz.json</code> 을 만들고
+              <code class="bg-slate-100 px-1.5 py-0.5 rounded">_course.json</code> 에 등록한 뒤
+              <code class="bg-slate-100 px-1.5 py-0.5 rounded">python build.py</code> 를 실행하면 반영됩니다.
+              번거로우면 Claude에게 <em>“새 강의 추가해줘”</em>라고만 해도 됩니다.
+            </p>
+          </div>
+        </details>
       </div>
     `;
   }
@@ -2966,65 +3050,80 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     const next = (fm.nextSuggested && fm.nextSuggested.length) ? fm.nextSuggested : findDefaultNext(id);
 
     const info = lessonInfo(id);
+    const diff = Number(fm.difficulty) || 0;
+    const diffLabel = ['', '입문', '기본', '심화'][diff] || '';
     return `
       <article class="space-y-5">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
-          <div class="flex flex-wrap items-center gap-2 text-xs">
-            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-700 bg-brand-50 px-2 py-0.5 rounded-full">
+          <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs">
+            <span class="inline-flex items-center text-xs font-semibold text-brand-700 bg-brand-50 px-2.5 py-1 rounded-full">
               ${escapeHtml(info.courseLabel)}${info.index1 ? ` · ${info.index1}차시` : ''}
             </span>
-            ${fm.duration ? `<span class="text-slate-500">· ${escapeHtml(fm.duration)}</span>`: ''}
-            ${fm.difficulty ? `<span class="text-slate-500">· 난이도 ${'●'.repeat(Number(fm.difficulty))}${'○'.repeat(3-Number(fm.difficulty))}</span>`: ''}
-            ${(fm.tags||[]).map(t => `<span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">${escapeHtml(t)}</span>`).join('')}
+            ${fm.duration ? `<span class="inline-flex items-center gap-1 text-slate-500">${ic('clock','w-3.5 h-3.5')}${escapeHtml(fm.duration)}</span>`: ''}
+            ${diff ? `<span class="inline-flex items-center gap-1.5 text-slate-500">${ic('gauge','w-3.5 h-3.5')}난이도 ${diffLabel} <span class="tracking-tight text-brand-500">${'●'.repeat(diff)}<span class="text-slate-300">${'●'.repeat(3-diff)}</span></span></span>`: ''}
           </div>
-          <h1 class="mt-3 text-2xl sm:text-3xl font-bold text-slate-900">${escapeHtml(fm.title||id)}</h1>
+          <h1 class="mt-3 text-2xl sm:text-[1.9rem] font-extrabold text-slate-900 leading-tight">${escapeHtml(fm.title||id)}</h1>
+          ${(fm.tags||[]).length ? `<div class="mt-3 flex flex-wrap gap-1.5">${(fm.tags||[]).map(t => `<span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-xs">${escapeHtml(t)}</span>`).join('')}</div>` : ''}
           ${fm.metaphor ? `
-            <div class="mt-4 px-4 py-3 rounded-xl bg-brand-50 border border-brand-100 text-brand-900 text-sm leading-relaxed">
-              <span class="font-bold">🪜 비유 한 줄</span> — ${escapeHtml(fm.metaphor)}
+            <div class="mt-5 flex gap-3 px-4 py-3.5 rounded-xl bg-brand-50 border border-brand-100 text-brand-900 leading-relaxed">
+              <span class="text-brand-600 shrink-0 mt-0.5">${ic('compass','w-5 h-5')}</span>
+              <span><span class="font-bold">비유로 이해하기</span><br><span class="text-[0.95rem]">${escapeHtml(fm.metaphor)}</span></span>
             </div>` : ''}
           <div class="prose mt-6" id="lesson-body">${bodyHtml}</div>
         </div>
 
         <div class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <div class="font-bold text-slate-900">📝 내 메모</div>
-              <div class="text-xs text-slate-500 mt-0.5">이 강의에 대한 내 생각·실험 계획·동료에게 전할 메시지 등</div>
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2.5">
+              <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-slate-100 text-slate-600">${ic('note','w-5 h-5')}</span>
+              <div>
+                <div class="font-bold text-slate-900">내 메모</div>
+                <div class="text-xs text-slate-500 mt-0.5">생각·실험 계획·동료에게 전할 메시지를 자유롭게</div>
+              </div>
             </div>
-            ${myNote ? `<span class="text-xs text-emerald-700 bg-emerald-50 px-2 py-1 rounded-full">저장됨</span>` : ''}
+            ${myNote ? `<span class="text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-1 rounded-full shrink-0">저장됨</span>` : ''}
           </div>
+          <label for="note-input" class="sr-only">이 차시에 대한 메모</label>
           <textarea id="note-input" rows="4"
-            class="mt-3 w-full rounded-xl border border-slate-200 p-3 text-sm focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none"
+            class="mt-3 w-full rounded-xl border border-slate-200 p-3 text-sm leading-relaxed focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none"
             placeholder="자유롭게 적어두세요. 자동 저장됩니다.">${escapeHtml(myNote)}</textarea>
         </div>
 
         ${lesson.quiz ? `
           <div class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6">
-            <div class="font-bold text-slate-900">🧩 이해 확인 퀴즈</div>
-            <div class="text-sm text-slate-600 mt-1">${escapeHtml(lesson.quiz.title || '이해 확인')} — 총 ${lesson.quiz.questions.length}문항</div>
-            <button data-action="start-quiz" data-id="${id}"
-              class="mt-4 px-5 py-3 rounded-xl bg-brand-600 text-white font-semibold hover:bg-brand-700 transition">
-              ${state.quizResults[id] ? '퀴즈 다시 풀기' : '퀴즈 시작하기'}
-            </button>
-            ${state.quizResults[id] ? `
-              <div class="mt-3 text-sm text-slate-600">
-                지난 점수: <span class="font-bold text-brand-700">${state.quizResults[id].score}/${state.quizResults[id].total}</span>
-              </div>` : ''}
+            <div class="flex items-center gap-2.5">
+              <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-brand-50 text-brand-700">${ic('quiz','w-5 h-5')}</span>
+              <div>
+                <div class="font-bold text-slate-900">이해 확인 퀴즈</div>
+                <div class="text-sm text-slate-600 mt-0.5">${escapeHtml(lesson.quiz.title || '이해 확인')} · 총 ${lesson.quiz.questions.length}문항</div>
+              </div>
+            </div>
+            <div class="mt-4 flex flex-wrap items-center gap-3">
+              <button data-action="start-quiz" data-id="${id}"
+                class="px-5 py-3 rounded-xl bg-brand-600 text-white font-semibold text-sm hover:bg-brand-700 transition">
+                ${state.quizResults[id] ? '퀴즈 다시 풀기' : '퀴즈 시작하기'}
+              </button>
+              ${state.quizResults[id] ? `
+                <span class="text-sm text-slate-600">지난 점수 <span class="font-bold text-brand-700">${state.quizResults[id].score}/${state.quizResults[id].total}</span></span>` : ''}
+            </div>
           </div>` : ''}
 
-        <div class="flex flex-wrap gap-3 pt-2">
+        <div class="flex flex-wrap gap-3 pt-1">
           <button data-action="toggle-complete" data-id="${id}"
-            class="px-4 py-2.5 rounded-xl ${done ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-brand-600 text-white'} font-semibold text-sm hover:opacity-90 transition">
-            ${done ? '✓ 완료로 표시함 (취소)' : '이 차시 완료로 표시'}
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl ${done ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-brand-600 text-white'} font-semibold text-sm hover:opacity-90 transition">
+            ${done ? `${ic('check','w-4 h-4')}완료함 · 누르면 취소` : `${ic('check','w-4 h-4')}이 차시 완료로 표시`}
           </button>
           ${next.map(nid => {
             const nl = lessons[nid];
             if (!nl) return '';
             const ni = lessonInfo(nid);
             return `<button data-action="open-lesson" data-id="${nid}"
-              class="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-800 font-semibold text-sm hover:bg-slate-200 transition text-left">
-              <span class="text-xs font-medium text-slate-500 block">다음 · ${escapeHtml(ni.courseLabel)}${ni.index1 ? ` · ${ni.index1}차시` : ''}</span>
-              <span class="block mt-0.5">${escapeHtml(nl.frontmatter.title || nid)}</span>
+              class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-slate-100 text-slate-800 font-semibold text-sm hover:bg-slate-200 transition text-left">
+              <span>
+                <span class="text-xs font-medium text-slate-500 block">다음 · ${escapeHtml(ni.courseLabel)}${ni.index1 ? ` · ${ni.index1}차시` : ''}</span>
+                <span class="block mt-0.5">${escapeHtml(nl.frontmatter.title || nid)}</span>
+              </span>
+              ${ic('arrow','w-4 h-4 shrink-0 text-slate-400')}
             </button>`;
           }).join('')}
         </div>
@@ -3098,12 +3197,15 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     return `
       <div class="space-y-4">
         <div class="bg-white border border-slate-200 rounded-2xl p-6">
-          <h1 class="text-xl font-bold text-slate-900">학습 경로</h1>
-          <p class="mt-2 text-sm text-slate-600 leading-relaxed">${escapeHtml(meta.learningPath.description)}</p>
-          <div class="mt-4 flex items-center gap-4 text-xs text-slate-600">
-            <span class="inline-flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-md bg-white border border-slate-300"></span>아직 안 들은 차시</span>
-            <span class="inline-flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-md bg-brand-600"></span>완료한 차시</span>
-            <span class="inline-flex items-center gap-1"><span class="inline-block w-4 h-0.5 bg-brand-300"></span>의존 관계</span>
+          <div class="flex items-center gap-2.5">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-brand-50 text-brand-700">${ic('route','w-5 h-5')}</span>
+            <h1 class="text-xl font-bold text-slate-900">학습 경로</h1>
+          </div>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">${escapeHtml(meta.learningPath.description)}</p>
+          <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-600">
+            <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-md bg-white border border-slate-300"></span>아직 안 본 차시</span>
+            <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-md bg-brand-600"></span>완료한 차시</span>
+            <span class="inline-flex items-center gap-1.5"><span class="inline-block w-4 h-0.5 bg-brand-300"></span>학습 순서</span>
           </div>
         </div>
         <div class="bg-white border border-slate-200 rounded-2xl p-2 overflow-x-auto">
@@ -3132,10 +3234,13 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     return `
       <div class="space-y-4">
         <div class="bg-white border border-slate-200 rounded-2xl p-6">
-          <h1 class="text-xl font-bold text-slate-900">비유 · 연수 카드</h1>
-          <p class="mt-2 text-sm text-slate-600 leading-relaxed">
-            연수 자리에서 한 장씩 보여주기 좋은 카드 모음입니다. 차시별 *한 줄 비유*와
-            *연수에서 강조할 포인트*를 정리했어요.
+          <div class="flex items-center gap-2.5">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-brand-50 text-brand-700">${ic('layers','w-5 h-5')}</span>
+            <h1 class="text-xl font-bold text-slate-900">비유 · 연수 카드</h1>
+          </div>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+            연수 자리에서 한 장씩 보여주기 좋은 카드 모음입니다. 차시별 한 줄 비유와
+            연수에서 강조할 포인트를 정리했어요.
           </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -3143,20 +3248,21 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
             const fm = l.frontmatter;
             const trainingBlock = extractSection(l.body, '연수 자료');
             return `
-              <div class="bg-white border border-slate-200 rounded-2xl p-5">
-                <div class="text-xs font-semibold text-brand-700 bg-brand-50 inline-block px-2 py-0.5 rounded-full">${escapeHtml(lessonShortLabel(l.id))}</div>
+              <div class="flex flex-col bg-white border border-slate-200 rounded-2xl p-5">
+                <div class="text-xs font-semibold text-brand-700 bg-brand-50 inline-block self-start px-2 py-0.5 rounded-full">${escapeHtml(lessonShortLabel(l.id))}</div>
                 <div class="mt-2 font-bold text-slate-900 leading-snug">${escapeHtml(fm.title || l.id)}</div>
                 ${fm.metaphor ? `
-                  <div class="mt-3 px-3 py-2.5 rounded-xl bg-brand-50 border border-brand-100 text-brand-900 text-sm leading-relaxed">
-                    <span class="font-bold">🪜 비유</span> · ${escapeHtml(fm.metaphor)}
+                  <div class="mt-3 flex gap-2.5 px-3.5 py-3 rounded-xl bg-brand-50 border border-brand-100 text-brand-900 text-sm leading-relaxed">
+                    <span class="text-brand-600 shrink-0 mt-0.5">${ic('compass','w-4 h-4')}</span>
+                    <span>${escapeHtml(fm.metaphor)}</span>
                   </div>` : ''}
                 ${trainingBlock ? `
                   <details class="mt-3">
-                    <summary class="cursor-pointer text-sm font-bold text-slate-700 hover:text-brand-700">연수 자료 보기</summary>
+                    <summary class="cursor-pointer text-sm font-bold text-slate-700 hover:text-brand-700">연수 자료 펼쳐 보기</summary>
                     <div class="prose mt-2">${renderMarkdown(trainingBlock)}</div>
                   </details>` : ''}
                 <button data-action="open-lesson" data-id="${l.id}"
-                  class="mt-3 inline-block text-sm text-brand-700 font-semibold hover:underline">강의 보기 →</button>
+                  class="mt-3 inline-flex items-center gap-1.5 self-start text-sm text-brand-700 font-semibold hover:underline">강의 보기 ${ic('arrow','w-4 h-4')}</button>
               </div>
             `;
           }).join('')}
@@ -3170,20 +3276,24 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     return `
       <div class="space-y-4">
         <div class="bg-white border border-slate-200 rounded-2xl p-6">
-          <h1 class="text-xl font-bold text-slate-900">내 메모</h1>
-          <p class="mt-2 text-sm text-slate-600">강의를 들으며 적어둔 메모를 한자리에서 봅니다.</p>
+          <div class="flex items-center gap-2.5">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-brand-50 text-brand-700">${ic('note','w-5 h-5')}</span>
+            <h1 class="text-xl font-bold text-slate-900">내 메모</h1>
+          </div>
+          <p class="mt-3 text-sm text-slate-600">강의를 들으며 적어둔 메모를 한자리에서 모아 봅니다.</p>
         </div>
         ${entries.length === 0 ? `
-          <div class="bg-white border border-dashed border-slate-300 rounded-2xl p-10 text-center text-slate-500 text-sm">
-            아직 메모가 없어요. 강의를 보면서 자유롭게 적어보세요.
+          <div class="bg-white border border-dashed border-slate-300 rounded-2xl p-10 text-center">
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-slate-100 text-slate-400">${ic('note','w-6 h-6')}</div>
+            <p class="mt-3 text-slate-500 text-sm">아직 메모가 없어요. 강의를 보면서 자유롭게 적어보세요.</p>
           </div>
         ` : entries.map(([id, note]) => {
           const l = lessons[id];
           return `
             <div class="bg-white border border-slate-200 rounded-2xl p-5">
               <div class="text-xs font-semibold text-brand-700 bg-brand-50 inline-block px-2 py-0.5 rounded-full">${escapeHtml(lessonShortLabel(id))}</div>
-              <button data-action="open-lesson" data-id="${id}" class="block mt-2 text-sm text-slate-900 font-bold hover:text-brand-700 hover:underline text-left">
-                ${escapeHtml(l?.frontmatter?.title || id)} →
+              <button data-action="open-lesson" data-id="${id}" class="flex items-center gap-1.5 mt-2 text-sm text-slate-900 font-bold hover:text-brand-700 hover:underline text-left">
+                ${escapeHtml(l?.frontmatter?.title || id)} ${ic('arrow','w-3.5 h-3.5')}
               </button>
               <div class="mt-2 whitespace-pre-wrap text-sm text-slate-800 leading-relaxed">${escapeHtml(note)}</div>
             </div>
