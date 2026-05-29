@@ -115,7 +115,7 @@
   <!-- 뷰 탭 -->
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 pb-2.5 flex gap-1.5 overflow-x-auto">
     <button data-view="home"  class="view-tab whitespace-nowrap px-3.5 py-2 text-sm rounded-full font-semibold text-slate-600 hover:bg-slate-100 transition">홈</button>
-    <button data-view="path"  class="view-tab whitespace-nowrap px-3.5 py-2 text-sm rounded-full font-semibold text-slate-600 hover:bg-slate-100 transition">학습 경로</button>
+    <button data-view="quiz"  class="view-tab whitespace-nowrap px-3.5 py-2 text-sm rounded-full font-semibold text-slate-600 hover:bg-slate-100 transition">전체 퀴즈</button>
     <button data-view="cards" class="view-tab whitespace-nowrap px-3.5 py-2 text-sm rounded-full font-semibold text-slate-600 hover:bg-slate-100 transition">비유·연수 카드</button>
     <button data-view="notes" class="view-tab whitespace-nowrap px-3.5 py-2 text-sm rounded-full font-semibold text-slate-600 hover:bg-slate-100 transition">내 메모</button>
   </nav>
@@ -2856,7 +2856,8 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
   function courseCard(c) {
     const completed = c.lessons.filter(l => state.progress[`${c.id}/${l}`]?.completed).length;
     const pct = Math.round(100 * completed / c.lessons.length);
-    const isOpen = activeExpandedCourse() === c.id;
+    // 펼침 여부는 오직 state.expandedCourse가 결정한다 (접기 버튼이 확실히 동작하도록).
+    const isOpen = state.expandedCourse === c.id;
     const label = courseLabel(c.id);
     const ci = meta.courses.findIndex(x => x.id === c.id) + 1;
     return `
@@ -2917,7 +2918,7 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     const el = document.getElementById('content');
     if (currentView === 'home')      el.innerHTML = renderHome();
     else if (currentView === 'lesson') el.innerHTML = renderLesson(currentLessonId);
-    else if (currentView === 'path')   el.innerHTML = renderPath();
+    else if (currentView === 'quiz')   el.innerHTML = renderQuizHub();
     else if (currentView === 'cards')  el.innerHTML = renderCards();
     else if (currentView === 'notes')  el.innerHTML = renderNotes();
     else if (currentView === 'search') el.innerHTML = renderSearch(searchQuery);
@@ -3136,93 +3137,6 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     return meta.learningPath.edges.filter(e => e.from === id).map(e => e.to);
   }
 
-  function renderPath() {
-    // 노드: 모든 강의. 좌표는 코스별 행, 강의 순서별 열로 배치.
-    const courses = meta.courses;
-    const W = 880, ROW_H = 90, NODE_W = 200, NODE_H = 56;
-    const maxLessons = Math.max(...courses.map(c => c.lessons.length));
-    const colGap = (W - 40 - NODE_W) / Math.max(1, maxLessons - 1);
-
-    const nodePos = {};
-    courses.forEach((c, ci) => {
-      c.lessons.forEach((lid, li) => {
-        const id = `${c.id}/${lid}`;
-        nodePos[id] = {
-          x: 20 + li * colGap,
-          y: 30 + ci * ROW_H,
-        };
-      });
-    });
-
-    const H = 30 + courses.length * ROW_H + 60;
-
-    // 엣지
-    const edgesSvg = meta.learningPath.edges.map(e => {
-      const a = nodePos[e.from], b = nodePos[e.to];
-      if (!a || !b) return '';
-      const ax = a.x + NODE_W, ay = a.y + NODE_H/2;
-      const bx = b.x,           by = b.y + NODE_H/2;
-      // 곡선
-      const mx = (ax + bx) / 2;
-      const sameRow = Math.abs(ay - by) < 5;
-      const path = sameRow
-        ? `M ${ax} ${ay} L ${bx} ${by}`
-        : `M ${ax} ${ay} C ${mx} ${ay}, ${mx} ${by}, ${bx} ${by}`;
-      return `<path d="${path}" fill="none" stroke="#5eead4" stroke-width="2" marker-end="url(#arrow)" />`;
-    }).join('');
-
-    // 노드
-    const nodesSvg = Object.entries(nodePos).map(([id, p]) => {
-      const lesson = lessons[id];
-      const title = lesson?.frontmatter?.title || id;
-      const done = !!state.progress[id]?.completed;
-      const fill = done ? '#0d9488' : '#ffffff';
-      const stroke = done ? '#0d9488' : '#cbd5e1';
-      const textColor = done ? '#ffffff' : '#0f172a';
-      const shortTitle = title.length > 22 ? title.slice(0, 21) + '…' : title;
-      return `
-        <g class="path-node" data-action="open-lesson" data-id="${id}">
-          <rect x="${p.x}" y="${p.y}" width="${NODE_W}" height="${NODE_H}" rx="14" ry="14"
-                fill="${fill}" stroke="${stroke}" stroke-width="1.5" />
-          <text x="${p.x + 12}" y="${p.y + 22}" fill="${textColor}" font-size="11" font-weight="600">
-            ${escapeHtml(lessonShortLabel(id))}
-          </text>
-          <text x="${p.x + 12}" y="${p.y + 42}" fill="${textColor}" font-size="13" font-weight="700">
-            ${escapeHtml(shortTitle)}
-          </text>
-        </g>
-      `;
-    }).join('');
-
-    return `
-      <div class="space-y-4">
-        <div class="bg-white border border-slate-200 rounded-2xl p-6">
-          <div class="flex items-center gap-2.5">
-            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-brand-50 text-brand-700">${ic('route','w-5 h-5')}</span>
-            <h1 class="text-xl font-bold text-slate-900">학습 경로</h1>
-          </div>
-          <p class="mt-3 text-sm text-slate-600 leading-relaxed">${escapeHtml(meta.learningPath.description)}</p>
-          <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-600">
-            <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-md bg-white border border-slate-300"></span>아직 안 본 차시</span>
-            <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-md bg-brand-600"></span>완료한 차시</span>
-            <span class="inline-flex items-center gap-1.5"><span class="inline-block w-4 h-0.5 bg-brand-300"></span>학습 순서</span>
-          </div>
-        </div>
-        <div class="bg-white border border-slate-200 rounded-2xl p-2 overflow-x-auto">
-          <svg viewBox="0 0 ${W} ${H}" class="w-full" style="min-width:${W}px">
-            <defs>
-              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                <path d="M 0 0 L 10 5 L 0 10 z" fill="#14b8a6"/>
-              </marker>
-            </defs>
-            ${edgesSvg}
-            ${nodesSvg}
-          </svg>
-        </div>
-      </div>
-    `;
-  }
-
   function renderCards() {
     // 비유 + 연수 자료를 카드로 모아 보여줌
     const allLessons = [];
@@ -3370,39 +3284,71 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
   }
 
   // ───────── 퀴즈 ─────────
-  function startQuiz(id) {
-    const lesson = lessons[id];
-    if (!lesson?.quiz) return;
-    const quiz = lesson.quiz;
-    let i = 0;
-    let correctCount = 0;
-    const answers = [];
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
 
+  /** scope: 'all' 또는 코스 id → 해당 범위의 모든 문항을 모은다 */
+  function quizPool(scope) {
+    const courseIds = scope === 'all' ? meta.courses.map(c => c.id) : [scope];
+    const pool = [];
+    courseIds.forEach(cid => {
+      const course = meta.courses.find(c => c.id === cid);
+      if (!course) return;
+      course.lessons.forEach(lid => {
+        const l = lessons[`${cid}/${lid}`];
+        if (l && l.quiz && Array.isArray(l.quiz.questions)) {
+          l.quiz.questions.forEach(q => pool.push({ ...q, _src: l.frontmatter.title || lid }));
+        }
+      });
+    });
+    return pool;
+  }
+
+  /** 범용 퀴즈 진행기. quiz={title,questions,passingScore}, opts={label,srcVisible,onFinish,finalMessage,finalActions} */
+  function runQuiz(quiz, opts) {
+    opts = opts || {};
     const el = document.getElementById('content');
+    const total = quiz.questions.length;
+    let i = 0, correct = 0;
+
+    function frame(inner) {
+      el.innerHTML = `<div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">${inner}</div>`;
+      el.classList.remove('hub-fade'); void el.offsetWidth; el.classList.add('hub-fade');
+    }
+    function topBar() {
+      return `
+        <div class="flex items-center justify-between text-xs text-slate-500">
+          <span class="font-medium truncate pr-2">${escapeHtml(opts.label || '퀴즈')}</span>
+          <span class="shrink-0">${i+1} / ${total}</span>
+        </div>
+        <div class="mt-2 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+          <div class="h-full bg-brand-500 rounded-full transition-all" style="width:${(i)/total*100}%"></div>
+        </div>`;
+    }
+    function srcTag(q) {
+      return (opts.srcVisible && q._src) ? `<div class="mt-2 text-xs text-slate-400">${escapeHtml(q._src)}</div>` : '';
+    }
 
     function showQ() {
       const q = quiz.questions[i];
-      el.innerHTML = `
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
-          <div class="flex items-center justify-between text-xs text-slate-500">
-            <span>퀴즈 · ${escapeHtml(lesson.frontmatter.title)}</span>
-            <span>${i+1} / ${quiz.questions.length}</span>
-          </div>
-          <div class="mt-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-            <div class="h-full bg-brand-500" style="width:${(i)/quiz.questions.length*100}%"></div>
-          </div>
-          <h2 class="mt-5 text-lg sm:text-xl font-bold text-slate-900 leading-snug">${escapeHtml(q.question)}</h2>
-          <div class="mt-4 space-y-2">
-            ${q.options.map((opt, idx) => `
-              <button data-opt="${idx}"
-                class="w-full text-left px-4 py-3 rounded-xl border border-slate-200 hover:border-brand-400 hover:bg-brand-50 transition text-sm leading-relaxed">
-                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-700 text-xs font-bold mr-2">${String.fromCharCode(65+idx)}</span>
-                ${escapeHtml(opt)}
-              </button>
-            `).join('')}
-          </div>
-        </div>
-      `;
+      frame(`
+        ${topBar()}
+        <h2 class="mt-5 text-lg sm:text-xl font-bold text-slate-900 leading-snug">${fmtInline(q.question)}</h2>
+        ${srcTag(q)}
+        <div class="mt-4 space-y-2">
+          ${q.options.map((opt, idx) => `
+            <button data-opt="${idx}"
+              class="w-full text-left px-4 py-3 rounded-xl border border-slate-200 hover:border-brand-400 hover:bg-brand-50 transition text-sm leading-relaxed flex items-start gap-2.5">
+              <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-700 text-xs font-bold shrink-0">${String.fromCharCode(65+idx)}</span>
+              <span>${fmtInline(opt)}</span>
+            </button>`).join('')}
+        </div>`);
       el.querySelectorAll('button[data-opt]').forEach(b => {
         b.addEventListener('click', () => showResult(Number(b.dataset.opt)));
       });
@@ -3411,121 +3357,197 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
     function showResult(picked) {
       const q = quiz.questions[i];
       const right = picked === q.answer;
-      if (right) correctCount++;
-      answers.push({picked, right});
-      el.innerHTML = `
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
-          <div class="flex items-center justify-between text-xs text-slate-500">
-            <span>퀴즈 · ${escapeHtml(lesson.frontmatter.title)}</span>
-            <span>${i+1} / ${quiz.questions.length}</span>
-          </div>
-          <h2 class="mt-5 text-lg sm:text-xl font-bold text-slate-900 leading-snug">${escapeHtml(q.question)}</h2>
-          <div class="mt-4 space-y-2">
-            ${q.options.map((opt, idx) => {
-              const isAns = idx === q.answer;
-              const isPick = idx === picked;
-              let cls = 'border-slate-200';
-              if (isAns) cls = 'border-emerald-500 bg-emerald-50';
-              else if (isPick && !isAns) cls = 'border-rose-300 bg-rose-50';
-              return `
-                <div class="w-full text-left px-4 py-3 rounded-xl border ${cls} text-sm leading-relaxed flex items-start gap-2">
-                  <span class="inline-flex items-center justify-center w-6 h-6 rounded-full ${isAns ? 'bg-emerald-600 text-white' : (isPick ? 'bg-rose-400 text-white' : 'bg-slate-100 text-slate-700')} text-xs font-bold flex-shrink-0">
-                    ${isAns ? '✓' : (isPick ? '×' : String.fromCharCode(65+idx))}
-                  </span>
-                  <span>${escapeHtml(opt)}</span>
-                </div>
-              `;
-            }).join('')}
-          </div>
-          <div class="mt-5 px-4 py-3 rounded-xl ${right ? 'bg-emerald-50 border border-emerald-200 text-emerald-900' : 'bg-amber-50 border border-amber-200 text-amber-900'} text-sm leading-relaxed">
-            ${right ? '✓ 잘 보셨어요. ' : '한 번 더 생각해볼까요? '}
-            ${escapeHtml(q.explanation || '')}
-          </div>
-          <button id="next-q" class="mt-5 px-5 py-3 rounded-xl bg-brand-600 text-white font-semibold text-sm hover:bg-brand-700 transition">
-            ${i+1 < quiz.questions.length ? '다음 문제 →' : '결과 보기'}
-          </button>
+      if (right) correct++;
+      frame(`
+        ${topBar()}
+        <h2 class="mt-5 text-lg sm:text-xl font-bold text-slate-900 leading-snug">${fmtInline(q.question)}</h2>
+        ${srcTag(q)}
+        <div class="mt-4 space-y-2">
+          ${q.options.map((opt, idx) => {
+            const isAns = idx === q.answer, isPick = idx === picked;
+            let cls = 'border-slate-200';
+            if (isAns) cls = 'border-emerald-500 bg-emerald-50';
+            else if (isPick && !isAns) cls = 'border-rose-300 bg-rose-50';
+            return `
+              <div class="px-4 py-3 rounded-xl border ${cls} text-sm leading-relaxed flex items-start gap-2.5">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full ${isAns ? 'bg-emerald-600 text-white' : (isPick ? 'bg-rose-400 text-white' : 'bg-slate-100 text-slate-700')} text-xs font-bold shrink-0">
+                  ${isAns ? ic('check','w-3.5 h-3.5') : (isPick ? '×' : String.fromCharCode(65+idx))}
+                </span>
+                <span>${fmtInline(opt)}</span>
+              </div>`;
+          }).join('')}
         </div>
-      `;
+        <div class="mt-5 px-4 py-3 rounded-xl ${right ? 'bg-emerald-50 border border-emerald-200 text-emerald-900' : 'bg-amber-50 border border-amber-200 text-amber-900'} text-sm leading-relaxed">
+          <span class="font-semibold">${right ? '잘 보셨어요. ' : '한 번 더 생각해볼까요? '}</span>${fmtInline(q.explanation || '')}
+        </div>
+        <button id="next-q" class="mt-5 px-5 py-3 rounded-xl bg-brand-600 text-white font-semibold text-sm hover:bg-brand-700 transition">
+          ${i+1 < total ? '다음 문제' : '결과 보기'}
+        </button>`);
       document.getElementById('next-q').addEventListener('click', () => {
         i++;
-        if (i < quiz.questions.length) showQ();
-        else showFinal();
+        if (i < total) showQ(); else showFinal();
       });
     }
 
     function showFinal() {
-      const total = quiz.questions.length;
-      const pct = Math.round(100 * correctCount / total);
-      const passed = correctCount >= (quiz.passingScore ?? Math.ceil(total*0.6));
-      state.quizResults[id] = { score: correctCount, total, ts: Date.now() };
-      // 자동으로 완료 표시
-      if (passed) state.progress[id] = { ...(state.progress[id]||{}), completed: true };
-      saveState();
-      el.innerHTML = `
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 text-center">
+      const passed = correct >= (quiz.passingScore ?? Math.ceil(total*0.6));
+      if (opts.onFinish) opts.onFinish({ correct, total, passed });
+      frame(`
+        <div class="text-center">
           <div class="inline-flex items-center justify-center w-20 h-20 rounded-full ${passed ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'} text-3xl font-bold">
-            ${correctCount}<span class="text-base opacity-70">/${total}</span>
+            ${correct}<span class="text-base opacity-70">/${total}</span>
           </div>
           <h2 class="mt-4 text-xl font-bold text-slate-900">${passed ? '잘하셨어요!' : '거의 다 왔어요!'}</h2>
-          <p class="mt-2 text-sm text-slate-600 leading-relaxed">
-            ${passed
-              ? '핵심 내용을 잘 이해하셨네요. 강의가 완료 처리되었습니다.'
-              : '한 번 더 강의를 훑어보고 다시 풀어볼까요? 틀린 문제의 해설이 도움이 될 거예요.'}
-          </p>
+          <p class="mt-2 text-sm text-slate-600 leading-relaxed">${opts.finalMessage ? opts.finalMessage({correct,total,passed}) : (passed ? '핵심 내용을 잘 이해하셨네요.' : '해설을 참고해 한 번 더 풀어볼까요?')}</p>
           <div class="mt-6 flex flex-wrap justify-center gap-3">
-            <button data-action="open-lesson" data-id="${id}"
-              class="px-5 py-3 rounded-xl bg-slate-100 text-slate-800 font-semibold text-sm hover:bg-slate-200 transition">
-              강의로 돌아가기
-            </button>
-            <button data-action="start-quiz" data-id="${id}"
-              class="px-5 py-3 rounded-xl bg-brand-600 text-white font-semibold text-sm hover:bg-brand-700 transition">
-              다시 풀기
-            </button>
+            ${opts.finalActions ? opts.finalActions({correct,total,passed}) : ''}
           </div>
-        </div>
-      `;
+        </div>`);
     }
 
     showQ();
   }
 
-  // ───────── 이벤트 핸들러 ─────────
-  function afterRender() {
-    // 액션 위임
-    document.querySelectorAll('[data-action]').forEach(el => {
-      if (el.__bound) return;
-      el.__bound = true;
-      el.addEventListener('click', (e) => {
-        const action = el.dataset.action;
-        const id = el.dataset.id;
-        if (action === 'open-lesson') {
-          // 강의를 열면 그 강의가 속한 코스를 자동으로 펼침
-          const cid = String(id || '').split('/')[0];
-          if (cid && meta.courses.some(c => c.id === cid)) {
-            state.expandedCourse = cid;
-            saveState();
-          }
-          setView('lesson', id);
-        }
-        else if (action === 'go-home') setView('home');
-        else if (action === 'toggle-course') {
-          // 같은 코스 헤더 다시 누르면 접힘, 다른 코스 누르면 그쪽 펼침
-          state.expandedCourse = (state.expandedCourse === id) ? null : id;
-          saveState();
-          renderSidebar();
-        }
-        else if (action === 'toggle-complete') {
-          state.progress[id] = state.progress[id] || {};
-          state.progress[id].completed = !state.progress[id].completed;
-          saveState();
-          renderSidebar();
-          renderContent();
-        }
-        else if (action === 'start-quiz') startQuiz(id);
-      });
+  function startQuiz(id) {
+    const lesson = lessons[id];
+    if (!lesson || !lesson.quiz) return;
+    runQuiz(lesson.quiz, {
+      label: `퀴즈 · ${lesson.frontmatter.title || id}`,
+      onFinish: ({ correct, total, passed }) => {
+        state.quizResults[id] = { score: correct, total, ts: Date.now() };
+        if (passed) state.progress[id] = { ...(state.progress[id]||{}), completed: true };
+        saveState();
+      },
+      finalMessage: ({ passed }) => passed
+        ? '핵심 내용을 잘 이해하셨네요. 강의가 완료 처리되었습니다.'
+        : '한 번 더 강의를 훑어보고 다시 풀어볼까요? 틀린 문제의 해설이 도움이 될 거예요.',
+      finalActions: () => `
+        <button data-action="open-lesson" data-id="${id}" class="px-5 py-3 rounded-xl bg-slate-100 text-slate-800 font-semibold text-sm hover:bg-slate-200 transition">강의로 돌아가기</button>
+        <button data-action="start-quiz" data-id="${id}" class="px-5 py-3 rounded-xl bg-brand-600 text-white font-semibold text-sm hover:bg-brand-700 transition">다시 풀기</button>`
     });
+  }
 
-    // 메모 자동 저장
+  // ───────── 전체(랜덤) 퀴즈 ─────────
+  let quizScope = 'all';
+  let quizCount = '10';   // '5' | '10' | 'all'
+  function scopeLabel(scope) { return scope === 'all' ? '전체' : courseLabel(scope); }
+
+  function startMixedQuiz(scope, count) {
+    const pool = shuffle(quizPool(scope));
+    if (!pool.length) return;
+    const n = (count === 'all') ? pool.length : Math.min(Number(count) || 10, pool.length);
+    const questions = pool.slice(0, n);
+    runQuiz({ title: '전체 퀴즈', questions, passingScore: Math.ceil(n * 0.6) }, {
+      label: `전체 퀴즈 · ${scopeLabel(scope)}`,
+      srcVisible: true,
+      finalMessage: ({ correct, total }) => `${total}문항 중 ${correct}문항을 맞혔어요. 무작위라 다시 풀면 새 문제가 나와요.`,
+      finalActions: () => `
+        <button data-action="go-quiz" class="px-5 py-3 rounded-xl bg-slate-100 text-slate-800 font-semibold text-sm hover:bg-slate-200 transition">퀴즈 설정으로</button>
+        <button data-action="retry-mixed-quiz" class="px-5 py-3 rounded-xl bg-brand-600 text-white font-semibold text-sm hover:bg-brand-700 transition">새 문제로 다시</button>`
+    });
+  }
+
+  function renderQuizHub() {
+    const scopes = [{ id:'all', label:'전체' }].concat(meta.courses.map(c => ({ id:c.id, label:courseLabel(c.id) })));
+    const avail = quizPool(quizScope).length;
+    const counts = [{ v:'5', l:'5문항' }, { v:'10', l:'10문항' }, { v:'all', l:`전체 ${avail}문항` }];
+    const startN = (quizCount === 'all') ? avail : Math.min(Number(quizCount), avail);
+
+    const scopeChips = scopes.map(s => {
+      const active = quizScope === s.id;
+      const n = quizPool(s.id).length;
+      return `<button data-action="set-quiz-scope" data-scope="${s.id}"
+        class="px-4 py-2.5 rounded-xl text-sm font-semibold border transition ${active ? 'bg-brand-600 text-white border-brand-600' : 'bg-white text-slate-700 border-slate-200 hover:border-brand-300'}">
+        ${escapeHtml(s.label)} <span class="${active ? 'text-brand-100' : 'text-slate-400'}">· ${n}문항</span>
+      </button>`;
+    }).join('');
+
+    const countChips = counts.map(c => {
+      const active = String(quizCount) === String(c.v);
+      const disabled = (c.v !== 'all' && Number(c.v) > avail);
+      return `<button data-action="set-quiz-count" data-count="${c.v}" ${disabled ? 'disabled' : ''}
+        class="px-4 py-2.5 rounded-xl text-sm font-semibold border transition ${active ? 'bg-brand-600 text-white border-brand-600' : 'bg-white text-slate-700 border-slate-200 hover:border-brand-300'} ${disabled ? 'opacity-40 cursor-not-allowed' : ''}">
+        ${escapeHtml(c.l)}
+      </button>`;
+    }).join('');
+
+    return `
+      <div class="space-y-4">
+        <div class="bg-white border border-slate-200 rounded-2xl p-6">
+          <div class="flex items-center gap-2.5">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-brand-50 text-brand-700">${ic('quiz','w-5 h-5')}</span>
+            <h1 class="text-xl font-bold text-slate-900">전체 퀴즈</h1>
+          </div>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">선택한 과정의 여러 차시에서 문제를 무작위로 모아 한 번에 풀어봅니다. 복습에 좋아요.</p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 space-y-5">
+          <div>
+            <h2 class="text-sm font-bold text-slate-500">1. 범위 고르기</h2>
+            <div class="mt-2.5 flex flex-wrap gap-2">${scopeChips}</div>
+          </div>
+          <div>
+            <h2 class="text-sm font-bold text-slate-500">2. 문항 수</h2>
+            <div class="mt-2.5 flex flex-wrap gap-2">${countChips}</div>
+          </div>
+          <div class="pt-1">
+            ${avail === 0
+              ? `<p class="text-sm text-slate-500">이 범위에는 풀 수 있는 문제가 없어요.</p>`
+              : `<button data-action="start-mixed-quiz"
+                  class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3.5 rounded-xl bg-brand-600 text-white font-bold text-sm hover:bg-brand-700 transition">
+                  ${ic('quiz','w-4 h-4')} ${escapeHtml(scopeLabel(quizScope))} 퀴즈 ${startN}문항 시작하기
+                </button>`}
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // ───────── 이벤트 핸들러 (이벤트 위임) ─────────
+  // 사이드바·콘텐츠는 innerHTML로 자주 새로 그려지므로, 요소마다 리스너를
+  // 다는 방식은 재렌더 후 죽는다. document에 단 한 번만 위임한다.
+  let globalEventsBound = false;
+  function bindGlobalEvents() {
+    if (globalEventsBound) return;
+    globalEventsBound = true;
+    document.body.addEventListener('click', (e) => {
+      const el = e.target.closest('[data-action]');
+      if (!el) return;
+      const action = el.dataset.action;
+      const id = el.dataset.id;
+      if (action === 'open-lesson') {
+        const cid = String(id || '').split('/')[0];
+        if (cid && meta.courses.some(c => c.id === cid)) {
+          state.expandedCourse = cid;   // 강의를 열면 그 코스를 펼침
+          saveState();
+        }
+        setView('lesson', id);
+      }
+      else if (action === 'go-home') setView('home');
+      else if (action === 'go-quiz') setView('quiz');
+      else if (action === 'toggle-course') {
+        // 같은 코스 다시 누르면 접고, 다른 코스 누르면 그쪽을 펼침
+        state.expandedCourse = (state.expandedCourse === id) ? null : id;
+        saveState();
+        renderSidebar();
+      }
+      else if (action === 'toggle-complete') {
+        state.progress[id] = state.progress[id] || {};
+        state.progress[id].completed = !state.progress[id].completed;
+        saveState();
+        renderSidebar();
+        renderContent();
+      }
+      else if (action === 'start-quiz') startQuiz(id);
+      else if (action === 'set-quiz-scope') { quizScope = el.dataset.scope; renderContent(); }
+      else if (action === 'set-quiz-count') { quizCount = el.dataset.count; renderContent(); }
+      else if (action === 'start-mixed-quiz' || action === 'retry-mixed-quiz') {
+        startMixedQuiz(quizScope, quizCount);
+      }
+    });
+  }
+
+  function afterRender() {
+    // 메모 자동 저장 (강의를 그릴 때마다 새 textarea가 생기므로 매번 연결)
     const note = document.getElementById('note-input');
     if (note) {
       let t;
@@ -3564,8 +3586,18 @@ Anthropic Academy "Teaching AI Fluency" Lesson 3, Video 2: Applying Discipline E
       .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
       .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
+  // 퀴즈 문항 등 마크다운을 안 거치는 짧은 텍스트의 *강조*를 굵게 처리
+  function fmtInline(s) {
+    return escapeHtml(s).replace(/\*([^*\n]+)\*/g, '<strong class="font-bold text-slate-900">$1</strong>');
+  }
 
   // ───────── 초기 렌더 ─────────
+  // 처음 로드 시 펼칠 코스 기본값 (마지막 본 강의의 코스 > 첫 코스).
+  // 사용자가 세션 중 접으면(null) 그 상태를 유지한다.
+  if (!meta.courses.some(c => c.id === state.expandedCourse)) {
+    state.expandedCourse = (state.lastLesson && state.lastLesson.split('/')[0]) || meta.courses[0].id;
+  }
+  bindGlobalEvents();
   setView('home');
 })();
 </script>
